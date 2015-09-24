@@ -60,9 +60,9 @@ int main(void)
   WAIT1_Waitms(50);
   LED1_Off();
   WAIT1_Waitms(50);
-  LED2_On();
+ /* LED2_On(); */
   WAIT1_Waitms(50);
-  LED2_Off();
+  /*LED2_Off();  */
   WAIT1_Waitms(50);
   }
   /* For example: for(;;) { } */

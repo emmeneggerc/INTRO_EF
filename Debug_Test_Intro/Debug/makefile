@@ -52,7 +52,7 @@ all: Debug_Test_Intro.elf secondary-outputs
 Debug_Test_Intro.elf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: Cross ARM C++ Linker'
-	arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g3 -T "C:/Users/Cornel/Documents/Debug_Test_Intro/Project_Settings/Linker_Files/ProcessorExpert.ld" -Xlinker --gc-sections -L"C:/Users/Cornel/Documents/Debug_Test_Intro/Project_Settings/Linker_Files" -Wl,-Map,"Debug_Test_Intro.map" -specs=nano.specs -specs=nosys.specs -o "Debug_Test_Intro.elf" $(OBJS) $(USER_OBJS) $(LIBS)
+	arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g3 -T "C:/Users/Cornel/Documents/EF_INTRO_HS15/Debug_Test_Intro/Project_Settings/Linker_Files/ProcessorExpert.ld" -Xlinker --gc-sections -L"C:/Users/Cornel/Documents/EF_INTRO_HS15/Debug_Test_Intro/Project_Settings/Linker_Files" -Wl,-Map,"Debug_Test_Intro.map" -specs=nano.specs -specs=nosys.specs -o "Debug_Test_Intro.elf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 

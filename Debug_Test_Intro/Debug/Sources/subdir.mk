@@ -20,7 +20,7 @@ C_DEPS += \
 Sources/%.o: ../Sources/%.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: Cross ARM C Compiler'
-	arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g3 -I"C:/Users/Cornel/Documents/Debug_Test_Intro/Static_Code/PDD" -I"C:/Users/Cornel/Documents/Debug_Test_Intro/Static_Code/IO_Map" -I"C:/Users/Cornel/Documents/Debug_Test_Intro/Sources" -I"C:/Users/Cornel/Documents/Debug_Test_Intro/Generated_Code" -std=c99 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -c -o "$@" "$<"
+	arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g3 -I"C:/Users/Cornel/Documents/EF_INTRO_HS15/Debug_Test_Intro/Static_Code/PDD" -I"C:/Users/Cornel/Documents/EF_INTRO_HS15/Debug_Test_Intro/Static_Code/IO_Map" -I"C:/Users/Cornel/Documents/EF_INTRO_HS15/Debug_Test_Intro/Sources" -I"C:/Users/Cornel/Documents/EF_INTRO_HS15/Debug_Test_Intro/Generated_Code" -std=c99 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -c -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
