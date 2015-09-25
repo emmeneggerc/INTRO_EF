@@ -6,11 +6,11 @@
 /*##                                   */
 /*##     Project   : EF_INTRO_ROBO     */
 /*##                                   */
-/*##     Processor : MK22FX512VLQ12    */
+/*##     Processor : MK22FX512VLK12    */
 /*##                                   */
 /*##     Compiler  : GNU C Compiler    */
 /*##                                   */
-/*##     Date/Time : 2015-09-25, 14:38, # CodeGen: 0 */
+/*##     Date/Time : 2015-09-25, 15:54, # CodeGen: 0 */
 /*##                                   */
 /*##     Abstract  :                   */
 /*##                                   */
