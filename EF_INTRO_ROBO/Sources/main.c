@@ -1,7 +1,7 @@
 /* ###################################################################
 **     Filename    : main.c
 **     Project     : EF_INTRO_ROBO
-**     Processor   : MK22FX512VLQ12
+**     Processor   : MK22FX512VLK12
 **     Version     : Driver 01.01
 **     Compiler    : GNU C Compiler
 **     Date/Time   : 2015-09-25, 14:38, # CodeGen: 0

@@ -1,7 +1,7 @@
 /* ###################################################################
 **     Filename    : Events.c
 **     Project     : EF_INTRO_ROBO
-**     Processor   : MK22FX512VLQ12
+**     Processor   : MK22FX512VLK12
 **     Component   : Events
 **     Version     : Driver 01.00
 **     Compiler    : GNU C Compiler
