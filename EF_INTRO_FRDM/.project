@@ -34,7 +34,12 @@
 		<link>
 			<name>Sources/Common_Files</name>
 			<type>2</type>
-			<locationURI>PARENT-1-PROJECT_LOC/Common_Files</locationURI>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
+			<name>Sources/Common_Files/platform.h</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Common_Files/platform.h</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>
