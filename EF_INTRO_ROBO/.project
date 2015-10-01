@@ -37,9 +37,34 @@
 			<locationURI>virtual:/virtual</locationURI>
 		</link>
 		<link>
-			<name>Sources/Common_Files/platform.h</name>
+			<name>Sources/Common_Files/Application.c</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/Common_Files/platform.h</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/Common_Files/Application.c</locationURI>
+		</link>
+		<link>
+			<name>Sources/Common_Files/Application.h</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Common_Files/Application.h</locationURI>
+		</link>
+		<link>
+			<name>Sources/Common_Files/LED.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Common_Files/LED.c</locationURI>
+		</link>
+		<link>
+			<name>Sources/Common_Files/LED.h</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Common_Files/LED.h</locationURI>
+		</link>
+		<link>
+			<name>Sources/Common_Files/Platform.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Common_Files/Platform.c</locationURI>
+		</link>
+		<link>
+			<name>Sources/Common_Files/Platform.h</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Common_Files/Platform.h</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>
