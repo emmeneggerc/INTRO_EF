@@ -1,10 +1,10 @@
 /* ###################################################################
 **     Filename    : main.c
-**     Project     : EF_INTRO_FRDM
-**     Processor   : MKL25Z128VLK4
+**     Project     : EF_INTRO_ROBO
+**     Processor   : MK22FX512VLK12
 **     Version     : Driver 01.01
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2015-09-25, 14:04, # CodeGen: 0
+**     Date/Time   : 2015-09-25, 14:38, # CodeGen: 0
 **     Abstract    :
 **         Main module.
 **         This module contains user's application code.
@@ -30,9 +30,15 @@
 /* Including needed modules to compile this module/procedure */
 #include "Cpu.h"
 #include "Events.h"
-#include "LED_B.h"
+#include "LED1.h"
 #include "LEDpin1.h"
 #include "BitIoLdd1.h"
+#include "LED2.h"
+#include "LEDpin2.h"
+#include "BitIoLdd2.h"
+#include "LED3.h"
+#include "LEDpin3.h"
+#include "BitIoLdd3.h"
 #include "WAIT1.h"
 /* Including shared modules, which are used for whole project */
 #include "PE_Types.h"
@@ -48,15 +54,12 @@ int main(void)
   /* Write your local variable definition here */
 
   /*** Processor Expert internal initialization. DON'T REMOVE THIS CODE!!! ***/
+  APP_Run();
   PE_low_level_init();
   /*** End of Processor Expert internal initialization.                    ***/
 
   /* Write your code here */
-  for(;;){
- LED_B_Neg();
- WAIT1_Waitms(500);
-  }
-
+  /* For example: for(;;) { } */
 
   /*** Don't write any code pass this line, or it will be deleted during code generation. ***/
   /*** RTOS startup code. Macro PEX_RTOS_START is defined by the RTOS component. DON'T MODIFY THIS CODE!!! ***/
