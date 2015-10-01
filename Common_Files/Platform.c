@@ -5,6 +5,9 @@
  *      Author: Cornel
  */
 
-/* Last chance MAF*/
+/* Last chance CEE*/
+
+#import stdio.h
+printf('En Codeziile');
 
 
