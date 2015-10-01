@@ -15,4 +15,4 @@
 #endif /* SOURCES_COMMON_FILES_LED_H_ */
 
 /* Hallo Cornel */
-/* Mech darf mer lösche */
+/* Mech darf mer loesche */

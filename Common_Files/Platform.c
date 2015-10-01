@@ -5,7 +5,7 @@
  *      Author: Cornel
  */
 
-/* Last chance CEE*/
+/* Last chance fancy pants*/
 
 #import stdio.h
 printf('En Codeziile');

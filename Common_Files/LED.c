@@ -5,10 +5,10 @@
  *      Author: Cornel
  */
 /* Hallo Mario
- * Ech ha etz no öbbis bearbeitet.
+ * Ech ha etz no oebbis bearbeitet.
  * */
 
-/* Lösch mech ned!*/
+/* Loesch mech ned!*/
 
 
 
