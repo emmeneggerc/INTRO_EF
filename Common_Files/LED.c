@@ -4,7 +4,9 @@
  *  Created on: 30.09.2015
  *      Author: Cornel
  */
-/* Hallo Mario*/
+/* Hallo Mario
+ * Ech ha etz no öbbis bearbeitet.
+ * */
 
 /* Lösch mech ned!*/
 
