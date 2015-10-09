@@ -66,5 +66,15 @@
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/Common_Files/Platform.h</locationURI>
 		</link>
+		<link>
+			<name>Sources/Common_Files/Timer.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Common_Files/Timer.c</locationURI>
+		</link>
+		<link>
+			<name>Sources/Common_Files/Timer.h</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Common_Files/Timer.h</locationURI>
+		</link>
 	</linkedResources>
 </projectDescription>
