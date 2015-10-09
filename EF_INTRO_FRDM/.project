@@ -47,6 +47,16 @@
 			<locationURI>PARENT-1-PROJECT_LOC/Common_Files/Application.h</locationURI>
 		</link>
 		<link>
+			<name>Sources/Common_Files/Event.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Common_Files/Event.c</locationURI>
+		</link>
+		<link>
+			<name>Sources/Common_Files/Event.h</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Common_Files/Event.h</locationURI>
+		</link>
+		<link>
 			<name>Sources/Common_Files/LED.c</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/Common_Files/LED.c</locationURI>
