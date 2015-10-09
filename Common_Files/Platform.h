@@ -12,6 +12,7 @@
 
 /* configuration macros */
 #define PL_CONFIG_HAS_LED   (1 && !defined(PL_CONFIG_DISABLE_HAS_LED))
+#define PL_CONFIG_HAS_TIMER   (1 && !defined(PL_CONFIG_DISABLE_HAS_TIMER))
 
 #if 0 /* another way, if configured for compiler define */
 #if defined(PL_BOARD_IS_FRDM)
