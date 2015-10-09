@@ -1,11 +1,6 @@
 /**
  * \file
- * \brief Event driver interface.
- * \author Erich Styger, erich.styger@hslu.ch
- *
- * This module implements a generic event driver. We are using numbered events starting with zero.
- * EVNT_HandleEvent() can be used to process the pending events. Note that the event with the number zero
- * has the highest priority and will be handled first
+
  */
 
 #ifndef EVENT_H_
