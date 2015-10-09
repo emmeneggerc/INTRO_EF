@@ -32,3 +32,7 @@ void APP_Run(void) {
   }
   PL_Deinit();
 }
+
+void APP_HandleEvent(void){
+
+}

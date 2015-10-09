@@ -10,6 +10,6 @@
 
 
 void APP_Run(void);
-
+void APP_HandleEvent(void);
 
 #endif /* SOURCES_COMMON_FILES_APPLICATION_H_ */
