@@ -34,47 +34,7 @@
 		<link>
 			<name>Sources/Common_Files</name>
 			<type>2</type>
-			<locationURI>virtual:/virtual</locationURI>
-		</link>
-		<link>
-			<name>Sources/Common_Files/Application.c</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/Common_Files/Application.c</locationURI>
-		</link>
-		<link>
-			<name>Sources/Common_Files/Application.h</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/Common_Files/Application.h</locationURI>
-		</link>
-		<link>
-			<name>Sources/Common_Files/Event.c</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/Common_Files/Event.c</locationURI>
-		</link>
-		<link>
-			<name>Sources/Common_Files/Event.h</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/Common_Files/Event.h</locationURI>
-		</link>
-		<link>
-			<name>Sources/Common_Files/LED.c</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/Common_Files/LED.c</locationURI>
-		</link>
-		<link>
-			<name>Sources/Common_Files/LED.h</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/Common_Files/LED.h</locationURI>
-		</link>
-		<link>
-			<name>Sources/Common_Files/Platform.c</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/Common_Files/Platform.c</locationURI>
-		</link>
-		<link>
-			<name>Sources/Common_Files/Platform.h</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/Common_Files/Platform.h</locationURI>
+			<location>Z:/Documents/HSLU/HS15/INTRO/git/Common_Files</location>
 		</link>
 	</linkedResources>
 </projectDescription>

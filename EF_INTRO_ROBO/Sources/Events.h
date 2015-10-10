@@ -40,6 +40,10 @@
 #include "LEDpin2.h"
 #include "BitIoLdd2.h"
 #include "WAIT1.h"
+#include "TU1.h"
+#include "Timer1.h"
+#include "TimerIntLdd1.h"
+#include "CS1.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -60,6 +64,38 @@ extern "C" {
 /* ===================================================================*/
 void Cpu_OnNMIINT(void);
 
+
+/*
+** ===================================================================
+**     Event       :  TMR_OnInterrupt (module Events)
+**
+**     Component   :  TMR [TimerInt]
+**     Description :
+**         When a timer interrupt occurs this event is called (only
+**         when the component is enabled - <Enable> and the events are
+**         enabled - <EnableEvent>). This event is enabled only if a
+**         <interrupt service/event> is enabled.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void TMR_OnInterrupt(void);
+
+/*
+** ===================================================================
+**     Event       :  Timer1_OnInterrupt (module Events)
+**
+**     Component   :  Timer1 [TimerInt]
+**     Description :
+**         When a timer interrupt occurs this event is called (only
+**         when the component is enabled - <Enable> and the events are
+**         enabled - <EnableEvent>). This event is enabled only if a
+**         <interrupt service/event> is enabled.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void Timer1_OnInterrupt(void);
 
 /* END Events */
 

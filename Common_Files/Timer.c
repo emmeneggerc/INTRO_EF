@@ -9,10 +9,17 @@
 #include "Platform.h"
 #if PL_CONFIG_HAS_TIMER
 #include "Timer.h"
+#include "Event.h"
 
 void TMR_OnInterrupt(void) {
-  /* this one gets called from an interrupt!!!! */
-  /*! \todo Add code for a blinking LED here */
+#define DELAY_TIMER_MS 1000
+  static int counter = 0;
+
+  counter++;
+  if(counter%(DELAY_TIMER_MS / TMR_TICK_MS)==0){
+	  EVNT_SetEvent(EVENT_LED_HEARTBEAT);
+  }
+
 }
 
 void TMR_Init(void) {
