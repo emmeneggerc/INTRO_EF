@@ -13,6 +13,21 @@
   #include "LED.h"
 #endif
 
+#if PL_CONFIG_HAS_KEYS
+void APP_KeyEvntHandler(EVNT_Handle event) {
+  switch(event) {
+   #if PL_CONFIG_NOF_KEYS >= 1
+
+   case EVNT_SW1_PRESSED:
+	   ;
+	   break;
+  }
+   #endif
+  }
+#endif
+
+
+
 void APP_HandleEvent(EVNT_Handle event){
 	switch (event){
 	case EVNT_STARTUP:
