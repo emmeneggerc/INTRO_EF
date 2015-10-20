@@ -34,18 +34,22 @@
 #include "PE_Const.h"
 #include "IO_Map.h"
 #include "WAIT1.h"
-#include "SW2.h"
+#include "SWI2.h"
 #include "ExtIntLdd2.h"
-#include "SW3.h"
+#include "SWI3.h"
 #include "ExtIntLdd3.h"
-#include "SW4.h"
+#include "SWI4.h"
 #include "ExtIntLdd4.h"
-#include "SW5.h"
+#include "SWI5.h"
 #include "BitIoLdd8.h"
-#include "SW6.h"
+#include "SWI6.h"
 #include "BitIoLdd9.h"
-#include "SW7.h"
+#include "SWI7.h"
 #include "ExtIntLdd5.h"
+#include "CLS1.h"
+#include "UTIL1.h"
+#include "AS1.h"
+#include "ASerialLdd2.h"
 #include "LED1.h"
 #include "LEDpin1.h"
 #include "LED2.h"
@@ -60,7 +64,7 @@
 #include "TU1.h"
 #include "CS1.h"
 #include "HF1.h"
-#include "SW1.h"
+#include "SWI1.h"
 #include "ExtIntLdd1.h"
 
 
@@ -101,12 +105,12 @@ void Cpu_OnNMIINT(void);
 */
 void Timer1_OnInterrupt(void);
 
-void SW3_OnInterrupt(void);
+void SWI3_OnInterrupt(void);
 /*
 ** ===================================================================
-**     Event       :  SW3_OnInterrupt (module Events)
+**     Event       :  SWI3_OnInterrupt (module Events)
 **
-**     Component   :  SW3 [ExtInt]
+**     Component   :  SWI3 [ExtInt]
 **     Description :
 **         This event is called when an active signal edge/level has
 **         occurred.
@@ -115,12 +119,12 @@ void SW3_OnInterrupt(void);
 ** ===================================================================
 */
 
-void SW2_OnInterrupt(void);
+void SWI2_OnInterrupt(void);
 /*
 ** ===================================================================
-**     Event       :  SW2_OnInterrupt (module Events)
+**     Event       :  SWI2_OnInterrupt (module Events)
 **
-**     Component   :  SW2 [ExtInt]
+**     Component   :  SWI2 [ExtInt]
 **     Description :
 **         This event is called when an active signal edge/level has
 **         occurred.
@@ -129,12 +133,12 @@ void SW2_OnInterrupt(void);
 ** ===================================================================
 */
 
-void SW1_OnInterrupt(void);
+void SWI1_OnInterrupt(void);
 /*
 ** ===================================================================
-**     Event       :  SW1_OnInterrupt (module Events)
+**     Event       :  SWI1_OnInterrupt (module Events)
 **
-**     Component   :  SW1 [ExtInt]
+**     Component   :  SWI1 [ExtInt]
 **     Description :
 **         This event is called when an active signal edge/level has
 **         occurred.
@@ -143,12 +147,12 @@ void SW1_OnInterrupt(void);
 ** ===================================================================
 */
 
-void SW7_OnInterrupt(void);
+void SWI7_OnInterrupt(void);
 /*
 ** ===================================================================
-**     Event       :  SW7_OnInterrupt (module Events)
+**     Event       :  SWI7_OnInterrupt (module Events)
 **
-**     Component   :  SW7 [ExtInt]
+**     Component   :  SWI7 [ExtInt]
 **     Description :
 **         This event is called when an active signal edge/level has
 **         occurred.
@@ -157,12 +161,12 @@ void SW7_OnInterrupt(void);
 ** ===================================================================
 */
 
-void SW4_OnInterrupt(void);
+void SWI4_OnInterrupt(void);
 /*
 ** ===================================================================
-**     Event       :  SW4_OnInterrupt (module Events)
+**     Event       :  SWI4_OnInterrupt (module Events)
 **
-**     Component   :  SW4 [ExtInt]
+**     Component   :  SWI4 [ExtInt]
 **     Description :
 **         This event is called when an active signal edge/level has
 **         occurred.

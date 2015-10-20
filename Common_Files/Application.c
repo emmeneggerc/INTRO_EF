@@ -12,18 +12,100 @@
 #if PL_CONFIG_HAS_LED
   #include "LED.h"
 #endif
+#if PL_CONFIG_HAS_SHELL
+  #include "CLS1.h"
+#endif
+
 
 #if PL_CONFIG_HAS_KEYS
 void APP_KeyEvntHandler(EVNT_Handle event) {
-  switch(event) {
-   #if PL_CONFIG_NOF_KEYS >= 1
 
-   case EVNT_SW1_PRESSED:
-	   ;
-	   break;
-  }
+  switch(event) {
+
+#if PL_CONFIG_NOF_KEYS >= 1
+  case EVNT_SW1_PRESSED:
+  #if !PL_CONFIG_EVENTS_AUTO_CLEAR
+    EVNT_ClearEvent(EVNT_SW1_PRESSED);
+  #endif
+  #if PL_CONFIG_HAS_SHELL
+    CLS1_SendStr("SW1 pressed\r\n", CLS1_GetStdio()->stdOut);
+  #endif
+    break;
+#endif
+
+#if PL_CONFIG_NOF_KEYS >= 2
+    case EVNT_SW2_PRESSED:
+    #if !PL_CONFIG_EVENTS_AUTO_CLEAR
+      EVNT_ClearEvent(EVNT_SW2_PRESSED);
+    #endif
+#if PL_CONFIG_HAS_SHELL
+    CLS1_SendStr("SW2 pressed\r\n",CLS1_GetStdio()->stdOut);
+  #endif
+      break;
+#endif
+
+#if PL_CONFIG_NOF_KEYS >= 3
+ case EVNT_SW3_PRESSED:
+ #if !PL_CONFIG_EVENTS_AUTO_CLEAR
+    EVNT_ClearEvent(EVNT_SW3_PRESSED);
+  #endif
+#if PL_CONFIG_HAS_SHELL
+    CLS1_SendStr("SW3 pressed\r\n", CLS1_GetStdio()->stdOut);
+  #endif
+    break;
+#endif
+
+#if PL_CONFIG_NOF_KEYS >= 4
+   case EVNT_SW4_PRESSED:
+   #if !PL_CONFIG_EVENTS_AUTO_CLEAR
+     EVNT_ClearEvent(EVNT_SW4_PRESSED);
    #endif
+#if PL_CONFIG_HAS_SHELL
+    CLS1_SendStr("SW4 pressed\r\n", CLS1_GetStdio()->stdOut);
+  #endif
+     break;
+#endif
+
+#if PL_CONFIG_NOF_KEYS >= 5
+  case EVNT_SW5_PRESSED:
+  #if !PL_CONFIG_EVENTS_AUTO_CLEAR
+    EVNT_ClearEvent(EVNT_SW5_PRESSED);
+  #endif
+#if PL_CONFIG_HAS_SHELL
+    CLS1_SendStr("SW5 pressed\r\n", CLS1_GetStdio()->stdOut);
+  #endif
+    break;
+#endif
+
+#if PL_CONFIG_NOF_KEYS >= 6
+   case EVNT_SW6_PRESSED:
+   #if !PL_CONFIG_EVENTS_AUTO_CLEAR
+     EVNT_ClearEvent(EVNT_SW6_PRESSED);
+   #endif
+#if PL_CONFIG_HAS_SHELL
+    CLS1_SendStr("SW6 pressed\r\n", CLS1_GetStdio()->stdOut);
+  #endif
+     break;
+#endif
+
+#if PL_CONFIG_NOF_KEYS >= 7
+  case EVNT_SW7_PRESSED:
+  #if !PL_CONFIG_EVENTS_AUTO_CLEAR
+    EVNT_ClearEvent(EVNT_SW7_PRESSED);
+  #endif
+#if PL_CONFIG_HAS_SHELL
+
+    CLS1_SendStr("SW7 pressed\r\n", CLS1_GetStdio()->stdOut);
+  #endif
+
+   break;
+#endif
+
+  default:
+	  break;
   }
+
+ }
 #endif
 
 
