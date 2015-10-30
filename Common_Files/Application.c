@@ -10,6 +10,7 @@
 #include "Application.h"
 #include "Event.h"
 #include "WAIT1.h"
+#include "Keys.h"
 #if PL_CONFIG_HAS_LED
   #include "LED.h"
 #endif
@@ -143,6 +144,7 @@ void APP_Run(void) {
   EVNT_SetEvent(EVNT_STARTUP);
   for(;;) {
 	  EVNT_HandleEvent(APP_HandleEvent);
+	  KEY_Scan();
   }
   PL_Deinit();
 }
