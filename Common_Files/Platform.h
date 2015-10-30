@@ -20,6 +20,8 @@
 #define PL_CONFIG_HAS_JOYSTICK 		(1 && !defined(PL_CONFIG_DISABLE_HAS_JOYSTICK))
 
 #define PL_CONFIG_HAS_SHELL         (1)
+#define PL_CONFIG_HAS_TRIGGER		(1)
+
 
 
 #if defined(PL_BOARD_IS_FRDM)
