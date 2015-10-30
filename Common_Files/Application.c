@@ -127,6 +127,10 @@ void APP_HandleEvent(EVNT_Handle event){
 		break;
 
 	default:
+#if PL_CONFIG_HAS_KEYS
+		APP_KeyEvntHandler(event);
+#endif
+
 		break;
 	}
 
