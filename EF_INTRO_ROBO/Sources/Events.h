@@ -44,6 +44,13 @@
 #include "Timer1.h"
 #include "TimerIntLdd1.h"
 #include "CS1.h"
+#include "SWI1.h"
+#include "ExtIntLdd1.h"
+#include "CLS1.h"
+#include "UTIL1.h"
+#include "BT1.h"
+#include "Serial1.h"
+#include "ASerialLdd1.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -96,6 +103,20 @@ void TMR_OnInterrupt(void);
 ** ===================================================================
 */
 void Timer1_OnInterrupt(void);
+
+void SWI1_OnInterrupt(void);
+/*
+** ===================================================================
+**     Event       :  SWI1_OnInterrupt (module Events)
+**
+**     Component   :  SWI1 [ExtInt]
+**     Description :
+**         This event is called when an active signal edge/level has
+**         occurred.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
 
 /* END Events */
 

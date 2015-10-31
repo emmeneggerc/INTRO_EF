@@ -14,7 +14,7 @@
 #define PL_CONFIG_HAS_TIMER   		(1 && !defined(PL_CONFIG_DISABLE_HAS_TIMER))
 #define PL_CONFIG_HAS_LED   		(1 && !defined(PL_CONFIG_DISABLE_HAS_LED))
 #define PL_CONFIG_HAS_EVENTS        (1 && !defined(PL_CONFIG_DISABLE_HAS_EVENTS))
- #define PL_CONFIG_EVENTS_AUTO_CLEAR (0 && PL_CONFIG_HAS_EVENTS)
+#define PL_CONFIG_EVENTS_AUTO_CLEAR (0 && PL_CONFIG_HAS_EVENTS)
 #define PL_CONFIG_HAS_KEYS  		(1 && !defined(PL_CONFIG_DISABLE_HAS_KEYS))
 #define PL_CONFIG_HAS_KBI             (1 && !defined(PL_CONFIG_DISABLE_HAS_KBI) && PL_CONFIG_HAS_KEYS)
 #define PL_CONFIG_HAS_JOYSTICK 		(1 && !defined(PL_CONFIG_DISABLE_HAS_JOYSTICK))
@@ -32,6 +32,7 @@
 #elif defined(PL_BOARD_IS_ROBO)
 #define PL_CONFIG_NOF_LED (2)
 #define PL_CONFIG_NOF_KEYS (1)
+#define PL_CONFIG_DISABLE_HAS_JOYSTICK (1)
 
 #else
 #error "make sure you have platform defined in compiler settings!"

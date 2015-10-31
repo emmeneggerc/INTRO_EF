@@ -29,6 +29,7 @@
 #include "Cpu.h"
 #include "Events.h"
 #include "Timer.h"
+#include "Keys.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -72,6 +73,23 @@ void Cpu_OnNMIINT(void)
 void Timer1_OnInterrupt(void)
 {
   TMR_OnInterrupt();
+}
+
+/*
+** ===================================================================
+**     Event       :  SWI1_OnInterrupt (module Events)
+**
+**     Component   :  SWI1 [ExtInt]
+**     Description :
+**         This event is called when an active signal edge/level has
+**         occurred.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void SWI1_OnInterrupt(void)
+{
+	SW1_OnInterrupt();
 }
 
 /* END Events */
