@@ -35,9 +35,6 @@
 #if PL_CONFIG_HAS_KEYS
 #include "Keys.h"
 #endif
-#if PL_CONFIG_HAS_TRIGGER
-#include "Trigger.h"
-#endif
 
 #ifdef __cplusplus
 extern "C" {
@@ -81,9 +78,6 @@ void Cpu_OnNMIINT(void)
 void Timer1_OnInterrupt(void)
 {
   TMR_OnInterrupt();
-#if PL_CONFIG_HAS_TRIGGER
-  TRG_IncTick();
-#endif
 }
 
 /*

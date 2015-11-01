@@ -33,7 +33,7 @@
 #define PL_CONFIG_NOF_LED (2)
 #define PL_CONFIG_NOF_KEYS (1)
 #define PL_CONFIG_DISABLE_HAS_JOYSTICK (1)
-#define PL CONFIG HAS BUZZER (1)
+#define PL_CONFIG_HAS_BUZZER (1)
 
 #else
 #error "make sure you have platform defined in compiler settings!"
