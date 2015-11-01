@@ -28,7 +28,17 @@
 
 #include "Cpu.h"
 #include "Events.h"
+#include "Keys.h"
+
+#if PL_CONFIG_HAS_TIMER
 #include "Timer.h"
+#endif
+#if PL_CONFIG_HAS_KEYS
+#include "Keys.h"
+#endif
+#if PL_CONFIG_HAS_TRIGGER
+#include "Trigger.h"
+#endif
 
 #ifdef __cplusplus
 extern "C" {
@@ -88,7 +98,7 @@ void Timer1_OnInterrupt(void)
 */
 void SWI3_OnInterrupt(void)
 {
-	SW3_OnInterrupt();
+	KEY_OnInterrupt(KEY_BUTTON3);
 }
 
 /*
@@ -105,7 +115,7 @@ void SWI3_OnInterrupt(void)
 */
 void SWI2_OnInterrupt(void)
 {
-	SW2_OnInterrupt();
+	KEY_OnInterrupt(KEY_BUTTON2);
 }
 
 /*
@@ -122,7 +132,7 @@ void SWI2_OnInterrupt(void)
 */
 void SWI1_OnInterrupt(void)
 {
-	SW1_OnInterrupt();
+	KEY_OnInterrupt(KEY_BUTTON1);
 }
 
 /*
@@ -139,7 +149,7 @@ void SWI1_OnInterrupt(void)
 */
 void SWI7_OnInterrupt(void)
 {
-	SW7_OnInterrupt();
+	KEY_OnInterrupt(KEY_BUTTON7);
 }
 
 /*
@@ -156,7 +166,7 @@ void SWI7_OnInterrupt(void)
 */
 void SWI4_OnInterrupt(void)
 {
-	SW4_OnInterrupt();
+	KEY_OnInterrupt(KEY_BUTTON4);
 }
 
 /* END Events */

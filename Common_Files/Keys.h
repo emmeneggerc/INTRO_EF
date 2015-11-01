@@ -94,21 +94,24 @@ typedef enum{	/* KEY_Buttons define*/
  */
 void KEY_Scan(void);
 
-/*! \brief Function called from external interrupt everytime, switch 1 is pressed. */
-void SW1_OnInterrupt(void);
+#if PL_CONFIG_HAS_KBI
+/*!
+ * \brief Function called from a keyboard interrupt (if supported).
+ * \param button Button for which interrupt has been generated.
+ */
+void KEY_OnInterrupt(KEY_Buttons button);
 
-/*! \brief Function called from external interrupt everytime, switch 2 is pressed. */
-void SW2_OnInterrupt(void);
+/*!
+ * \brief Acknowledge any pending interrupt, and enable again keyboard interrupts
+ */
+void KEY_EnableInterrupts(void);
 
-/*! \brief Function called from external interrupt everytime, switch 3 is pressed. */
-void SW3_OnInterrupt(void);
+/*!
+ * \brief Acknowledge any pending interrupt, and enable again keyboard interrupts
+ */
+void KEY_DisableInterrupts(void);
 
-/*! \brief Function called from external interrupt everytime, switch 4 is pressed. */
-void SW4_OnInterrupt(void);
-
-/*! \brief Function called from external interrupt everytime, switch 7 is pressed. */
-void SW7_OnInterrupt(void);
-
+#endif
 
 /*! \brief Get access to key hardware. Use KEY_Close() afterwards. */
 void KEY_Open(void);
