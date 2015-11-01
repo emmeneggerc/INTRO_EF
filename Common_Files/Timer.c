@@ -10,15 +10,23 @@
 #if PL_CONFIG_HAS_TIMER
 #include "Timer.h"
 #include "Event.h"
+#if PL_CONFIG_HAS_TRIGGER
+#include "Trigger.h"
+#endif
+#if PL_CONFIG_HAS_BUZZER
+#include "Buzzer.h"
+#endif
 
 void TMR_OnInterrupt(void) {
 #define DELAY_TIMER_MS 1000
   static int counter = 0;
-
   counter++;
   if(counter%(DELAY_TIMER_MS / TMR_TICK_MS)==0){
 	  EVNT_SetEvent(EVENT_LED_HEARTBEAT);
   }
+#if PL_CONFIG_HAS_TRIGGER
+  TRG_IncTick();
+#endif
 
 }
 
