@@ -48,6 +48,13 @@ typedef enum EVNT_Handle {
   EVNT_SW7_LPRESSED,
   EVNT_SW7_RELEASED,
 #endif
+#if PL_CONFIG_HAS_TETRIS
+  EVNT_TETRIS_LEFT,
+  EVNT_TETRIS_RIGHT,
+  EVNT_TETRIS_UP,
+  EVNT_TETRIS_DOWN,
+  EVNT_TETRIS_DROP,
+#endif
 
 
   EVNT_NOF_EVENTS       /*!< Must be last one! */

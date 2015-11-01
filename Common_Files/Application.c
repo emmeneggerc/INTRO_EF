@@ -24,6 +24,10 @@
 #include "Buzzer.h"
 #endif
 
+#if PL_CONFIG_HAS_TETRIS
+#include "Tetris.h"
+#endif
+
 #if PL_CONFIG_HAS_KEYS
 void APP_KeyEvntHandler(EVNT_Handle event) {
 
@@ -82,6 +86,11 @@ void APP_KeyEvntHandler(EVNT_Handle event) {
 		EVNT_ClearEvent(EVNT_SW5_PRESSED);
 #endif
 #if PL_CONFIG_HAS_SHELL
+#if PL_CONFIG_HAS_TETRIS
+		CLS1_SendStr("launching Tetris...\r\n", CLS1_GetStdio()->stdOut);
+		TETRIS_Start();
+#endif
+#else
 		CLS1_SendStr("SW5 pressed\r\n", CLS1_GetStdio()->stdOut);
 #endif
 		break;
@@ -104,7 +113,6 @@ void APP_KeyEvntHandler(EVNT_Handle event) {
 		EVNT_ClearEvent(EVNT_SW7_PRESSED);
 #endif
 #if PL_CONFIG_HAS_SHELL
-
 		CLS1_SendStr("SW7 pressed\r\n", CLS1_GetStdio()->stdOut);
 #endif
 
@@ -150,6 +158,9 @@ void APP_Run(void) {
 	for (;;) {
 		EVNT_HandleEvent(APP_HandleEvent);
 		KEY_Scan();
+#if PL_CONFIG_HAS_TETRIS
+		TETRIS_Run();
+#endif
 	}
 	PL_Deinit();
 }

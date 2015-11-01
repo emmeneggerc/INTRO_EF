@@ -18,6 +18,9 @@
 #if PL_CONFIG_HAS_TRIGGER
 #include "Trigger.h"
 #endif
+#if PL_CONFIG_HAS_TETRIS
+#include "Tetris.h"
+#endif
 #if PL_CONFIG_HAS_BUZZER
 #include "Buzzer.h"
 #endif
@@ -38,9 +41,6 @@ void PL_Init(void) {
 #if PL_CONFIG_HAS_BUZZER
 	BUZ_Init();
 #endif
-
-
-
 }
 
 void PL_Deinit(void) {

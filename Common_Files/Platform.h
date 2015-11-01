@@ -27,6 +27,7 @@
 #if defined(PL_BOARD_IS_FRDM)
 #define PL_CONFIG_NOF_LED (3)
 #define PL_CONFIG_NOF_KEYS (7)
+#define PL_CONFIG_HAS_TETRIS (1)
 
 
 #elif defined(PL_BOARD_IS_ROBO)
