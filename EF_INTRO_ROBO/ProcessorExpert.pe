@@ -3,7 +3,7 @@
   <Header>
     <Name>EF_INTRO_ROBO</Name>
     <SavedBy>Cornel</SavedBy>
-    <ModificationStamp>11</ModificationStamp>
+    <ModificationStamp>12</ModificationStamp>
     <Date>2015-09-25</Date>
     <IDE>Eclipse IDE</IDE>
     <PEversion>1.12.0.RT7_b1515-0427</PEversion>
@@ -29,7 +29,7 @@
     <UseExistingModules>true</UseExistingModules>
     <RenamePeripheries>false</RenamePeripheries>
     <Autodependency>true</Autodependency>
-    <ProjectCompNumb>29</ProjectCompNumb>
+    <ProjectCompNumb>31</ProjectCompNumb>
     <DelUnusedPreviouslyGenFiles>true</DelUnusedPreviouslyGenFiles>
     <GeneratedCodeFrozen>false</GeneratedCodeFrozen>
     <AssignInitComponentNameToPrph>true</AssignInitComponentNameToPrph>
