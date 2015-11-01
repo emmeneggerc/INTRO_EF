@@ -94,7 +94,9 @@ void Timer1_OnInterrupt(void)
 */
 void SWI1_OnInterrupt(void)
 {
-	SW1_OnInterrupt();
+
+	KEY_OnInterrupt(KEY_BUTTON1);
+
 }
 
 /* END Events */
