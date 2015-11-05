@@ -24,6 +24,9 @@
 #if PL_CONFIG_HAS_BUZZER
 #include "Buzzer.h"
 #endif
+#if PL_CONFIG_HAS_RTOS
+#include "RTOS.h"
+#endif
 
 void PL_Init(void) {
 #if PL_CONFIG_HAS_LED
@@ -40,6 +43,9 @@ void PL_Init(void) {
 #endif
 #if PL_CONFIG_HAS_BUZZER
 	BUZ_Init();
+#endif
+#if PL_CONFIG_HAS_RTOS
+	RTOS_Init();
 #endif
 }
 

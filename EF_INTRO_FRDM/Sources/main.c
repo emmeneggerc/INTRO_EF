@@ -63,6 +63,7 @@
 #include "UTIL1.h"
 #include "AS1.h"
 #include "ASerialLdd2.h"
+#include "FRTOS1.h"
 /* Including shared modules, which are used for whole project */
 #include "PE_Types.h"
 #include "PE_Error.h"

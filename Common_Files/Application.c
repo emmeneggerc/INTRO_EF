@@ -8,7 +8,6 @@
 
 #include "Platform.h"
 #include "Application.h"
-#include "Event.h"
 #include "WAIT1.h"
 #include "Keys.h"
 
@@ -28,6 +27,9 @@
 #include "Tetris.h"
 #endif
 
+#if PL_CONFIG_HAS_RTOS
+#include "RTOS.h"
+#endif
 #if PL_CONFIG_HAS_KEYS
 void APP_KeyEvntHandler(EVNT_Handle event) {
 
@@ -153,16 +155,25 @@ void APP_HandleEvent(EVNT_Handle event) {
 
 }
 
+void App(void){
+	EVNT_HandleEvent(APP_HandleEvent);
+			KEY_Scan();
+	#if PL_CONFIG_HAS_TETRIS
+			TETRIS_Run();
+	#endif
+}
+
 void APP_Run(void) {
 	PL_Init();
+#if PL_CONFIG_HAS_RTOS
 	EVNT_SetEvent(EVNT_STARTUP);
-	for (;;) {
-		EVNT_HandleEvent(APP_HandleEvent);
-		KEY_Scan();
-#if PL_CONFIG_HAS_TETRIS
-		TETRIS_Run();
-#endif
+	RTOS_Run();
+#else
+	for(,,){
+		App();
 	}
 	PL_Deinit();
+
+#endif
 }
 
