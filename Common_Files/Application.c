@@ -40,6 +40,7 @@ void APP_KeyEvntHandler(EVNT_Handle event) {
 #endif
 #if PL_CONFIG_HAS_SHELL
 		CLS1_SendStr("SW1 pressed\r\n", CLS1_GetStdio()->stdOut);
+		break;
 #endif
 #if PL_CONFIG_HAS_BUZZER
 		BUZ_Beep(500, 500);
