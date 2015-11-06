@@ -13,7 +13,7 @@
 #include "Keys.h"
 #include "Application.h"
 
-#define TEST_RTOS_TASKS  (0)
+#define TEST_RTOS_TASKS  (1)
 
 static volatile bool SW1Pressed = FALSE;
 
@@ -22,64 +22,69 @@ void RTOS_ButtonSW1Press(void) {
 }
 
 #if TEST_RTOS_TASKS
-static void T2(void* param) {
-	TickType_t xLastWakeTime;
+static void Task1(void* param) {
+for(;;) {
+	FRTOS1_vTaskDelay(500);
+#if PL_CONFIG_NOF_LED>=1
+	LED1_Neg();
+#endif
 
-	xLastWakeTime = xTaskGetTickCount();
-	for(;;) {
-		LED1_Neg();
-		FRTOS1_vTaskDelayUntil(&xLastWakeTime, 50/portTICK_RATE_MS);
-	}
+}
 }
 
-static void T3(void* param) {
-	for(;;) {
-		LED2_Neg();
-	}
+static void Task2(void* param) {
+for(;;) {
+FRTOS1_vTaskDelay(500);
+#if PL_CONFIG_NOF_LED>=2
+LED2_Neg();
+#endif
+}
 }
 #endif
 
 static void AppTask(void* param) {
-	for (;;) {
-		EVNT_HandleEvent(APP_HandleEvent);
+for (;;) {
+EVNT_HandleEvent(APP_HandleEvent);
 #if PL_CONFIG_HAS_KEYS && PL_CONFIG_NOF_KEYS >=0
-		KEY_Scan();
+KEY_Scan();
 #endif
-	}
-	PL_Deinit();
+}
+PL_Deinit();
 }
 
 void RTOS_Run(void) {
-	FRTOS1_vTaskStartScheduler(); /* does usually not return! */
+FRTOS1_vTaskStartScheduler(); /* does usually not return! */
 }
 
 void RTOS_Init(void) {
-	/*! \todo Add tasks here */
+/*! \todo Add tasks here */
 
-	if (FRTOS1_xTaskCreate(AppTask, (signed portCHAR *)"App",
-			configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY, NULL) != pdPASS) {
-		for (;;) { /*error*/
-		}
-	}
+if (FRTOS1_xTaskCreate(AppTask, (signed portCHAR *)"App",
+	configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY, NULL) != pdPASS) {
+for (;;) { /*error*/
+}
+}
 #if TEST_RTOS_TASKS
-	if (FRTOS1_xTaskCreate(T2, (signed portCHAR *)"T2", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY, NULL) != pdPASS) {
-		for(;;) {
-			/*error*/
-		}
-	}
+if (FRTOS1_xTaskCreate(Task1, (signed portCHAR *)"T2", configMINIMAL_STACK_SIZE,
+	NULL, tskIDLE_PRIORITY, NULL) != pdPASS) {
+for (;;) {
+	/*error*/
+}
+}
 
-	if (FRTOS1_xTaskCreate(T3, (signed portCHAR *)"T3", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY, NULL) != pdPASS) {
-		for(;;) {
-			/*error*/
-		}
-	}
+if (FRTOS1_xTaskCreate(Task2, (signed portCHAR *)"T3", configMINIMAL_STACK_SIZE,
+	NULL, tskIDLE_PRIORITY, NULL) != pdPASS) {
+for (;;) {
+	/*error*/
+}
+}
 
 #endif
 
 }
 
 void RTOS_Deinit(void) {
-	/* nothing needed */
+/* nothing needed */
 }
 
 #endif /* PL_HAS_RTOS */
