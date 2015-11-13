@@ -25,6 +25,7 @@
 #define PL_CONFIG_HAS_TRIGGER		(1)
 #define PL_CONFIG_HAS_DEBOUNCE		(1)
 #define PL_CONFIG_HAS_RTOS			(1)
+#define PL_CONFIG_HAS_MOTOR			(1)
 
 
 #if defined(PL_BOARD_IS_FRDM)
