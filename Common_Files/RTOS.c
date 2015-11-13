@@ -13,13 +13,10 @@
 #include "Keys.h"
 #include "Application.h"
 
-#define TEST_RTOS_TASKS  (1)
+#define TEST_RTOS_TASKS  (0)
 
 static volatile bool SW1Pressed = FALSE;
 
-void RTOS_ButtonSW1Press(void) {
-	SW1Pressed = TRUE;
-}
 
 #if TEST_RTOS_TASKS
 static void Task1(void* param) {
@@ -42,7 +39,9 @@ LED2_Neg();
 }
 #endif
 
+
 static void AppTask(void* param) {
+
 for (;;) {
 EVNT_HandleEvent(APP_HandleEvent);
 #if PL_CONFIG_HAS_KEYS && PL_CONFIG_NOF_KEYS >=0
@@ -64,6 +63,8 @@ if (FRTOS1_xTaskCreate(AppTask, (signed portCHAR *)"App",
 for (;;) { /*error*/
 }
 }
+
+
 #if TEST_RTOS_TASKS
 if (FRTOS1_xTaskCreate(Task1, (signed portCHAR *)"T2", configMINIMAL_STACK_SIZE,
 	NULL, tskIDLE_PRIORITY, NULL) != pdPASS) {
