@@ -65,6 +65,9 @@ void PL_Init(void) {
 #if PL_CONFIG_HAS_MOTOR
 	MOT_Init();
 #endif
+#if PL_CONFIG_HAS_MOTOR_TACHO
+	TACHO_Init();
+#endif
 
 }
 
@@ -89,5 +92,8 @@ void PL_Deinit(void) {
 #endif
 #if PL_CONFIG_HAS_MOTOR
 	MOT_Deinit();
+#endif
+#if PL_CONFIG_HAS_MOTOR_TACHO
+	TACHO_Deinit();
 #endif
 }

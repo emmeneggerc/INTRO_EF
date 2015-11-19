@@ -16,6 +16,9 @@
 #if PL_CONFIG_HAS_BUZZER
 #include "Buzzer.h"
 #endif
+#if PL_CONFIG_HAS_MOTOR_TACHO
+  #include "Tacho.h"
+#endif
 
 void TMR_OnInterrupt(void) {
 #define DELAY_TIMER_MS 1000
@@ -28,6 +31,9 @@ void TMR_OnInterrupt(void) {
   TRG_IncTick();
 #endif
 
+#if PL_CONFIG_HAS_MOTOR_TACHO
+  TACHO_Sample();
+#endif
 }
 
 void TMR_Init(void) {

@@ -28,6 +28,7 @@
 #define PL_CONFIG_HAS_MOTOR			(1)
 #define PL_CONFIG_HAS_SHELL_QUEUE   (1 && PL_CONFIG_HAS_SHELL)
 #define PL_SQUEUE_SINGLE_CHAR		(1 && PL_CONFIG_HAS_SHELL)
+#define PL_CONFIG_HAS_MOTOR_TACHO	(1)
 
 #if defined(PL_BOARD_IS_FRDM)
 #define PL_CONFIG_NOF_LED (3)
@@ -40,6 +41,8 @@
 #define PL_CONFIG_NOF_KEYS (1)
 #define PL_CONFIG_DISABLE_HAS_JOYSTICK (1)
 #define PL_CONFIG_HAS_BUZZER (1)
+
+
 
 #else
 #error "make sure you have platform defined in compiler settings!"
