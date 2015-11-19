@@ -30,6 +30,12 @@
 #if PL_CONFIG_HAS_SHELL
 #include "Shell.h"
 #endif
+#if PL_CONFIG_HAS_SHELL_QUEUE
+#include "ShellQueue.h"
+#endif
+#if PL_CONFIG_HAS_MOTOR
+#include "Motor.h"
+#endif
 
 void PL_Init(void) {
 #if PL_CONFIG_HAS_LED
@@ -53,7 +59,9 @@ void PL_Init(void) {
 #if PL_CONFIG_HAS_SHELL
 	SHELL_Init();
 #endif
-
+#if PL_CONFIG_HAS_SHELL_QUEUE
+ SQUEUE_Init();
+#endif
 #if PL_CONFIG_HAS_MOTOR
 	MOT_Init();
 #endif
@@ -75,6 +83,9 @@ void PL_Deinit(void) {
 #endif
 #if PL_CONFIG_HAS_BUZZER
 	BUZ_Deinit();
+#endif
+#if PL_CONFIG_HAS_SHELL_QUEUE
+ SQUEUE_Deinit();
 #endif
 #if PL_CONFIG_HAS_MOTOR
 	MOT_Deinit();
