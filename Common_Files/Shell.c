@@ -33,6 +33,9 @@
 #if PL_CONFIG_HAS_MOTOR
   #include "Motor.h"
 #endif
+#if PL_CONFIG_HAS_MOTOR_TACHO
+  #include "Tacho.h"
+#endif
 
 #define SHELL_COPY_CDC_TO_UART   (0)
 
