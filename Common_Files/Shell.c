@@ -24,7 +24,7 @@
 #if PL_CONFIG_HAS_SHELL_QUEUE
   #include "ShellQueue.h"
 #endif
-#if PL_CONFIG_HAS_REFLECTANCE
+#if PL_CONFIG_HAS_LINE_SENSOR
   #include "Reflectance.h"
 #endif
 #if PL_CONFIG_HAS_SEGGER_RTT
@@ -54,7 +54,7 @@ static const CLS1_ParseCommandCallback CmdParserTable[] =
 #if PL_CONFIG_HAS_BUZZER
   BUZ_ParseCommand,
 #endif
-#if PL_CONFIG_HAS_REFLECTANCE
+#if PL_CONFIG_HAS_LINE_SENSOR
   #if REF_PARSE_COMMAND_ENABLED
   REF_ParseCommand,
   #endif
@@ -229,6 +229,10 @@ static void ShellTask(void *pvParameters) {
 #if PL_CONFIG_HAS_SEGGER_RTT
     (void)CLS1_ReadAndParseWithCommandTable(rtt_buf, sizeof(rtt_buf), &RTT_Stdio, CmdParserTable);
 #endif
+#if PL_CONFIG_HAS_LINE_SENSOR
+    (void)CLS1_ReadAndParseWithCommandTable(reflectance_buf, sizeof(bluetooth_buf), &BT_stdio, CmdParserTable);
+#endif
+
 #if PL_CONFIG_HAS_SHELL_QUEUE
 #if PL_SQUEUE_SINGLE_CHAR
     {
@@ -239,10 +243,10 @@ static void ShellTask(void *pvParameters) {
     #if CLS1_DEFAULT_SERIAL
        ioLocal->stdOut(ch);
     #endif
-    #if PL_HAS_BLUETOOTH
+    #if PL_CONFIG_HAS_BLUETOOTH
         BT_stdio.stdOut(ch); /* copy on Bluetooth */
     #endif
-    #if PL_HAS_USB_CDC
+    #if PL_CONFIG_HAS_USB_CDC
         CDC_stdio.stdOut(ch); /* copy on USB CDC */
     #endif
       }

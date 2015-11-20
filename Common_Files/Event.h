@@ -55,7 +55,9 @@ typedef enum EVNT_Handle {
   EVNT_TETRIS_DOWN,
   EVNT_TETRIS_DROP,
 #endif
-
+#if PL_CONFIG_HAS_LINE_SENSOR
+  EVNT_REF_START_STOP_CALIBRATION,
+#endif
 
   EVNT_NOF_EVENTS       /*!< Must be last one! */
 } EVNT_Handle;
