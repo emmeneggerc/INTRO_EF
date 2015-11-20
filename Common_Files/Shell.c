@@ -62,6 +62,10 @@ static const CLS1_ParseCommandCallback CmdParserTable[] =
 #if PL_CONFIG_HAS_MOTOR
   MOT_ParseCommand,
 #endif
+#if PL_CONFIG_HAS_MOTOR_TACHO
+  TACHO_ParseCommand,
+#endif
+
   NULL /* Sentinel */
 };
 
