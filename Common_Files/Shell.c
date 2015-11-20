@@ -233,9 +233,7 @@ static void ShellTask(void *pvParameters) {
 #if PL_CONFIG_HAS_SEGGER_RTT
     (void)CLS1_ReadAndParseWithCommandTable(rtt_buf, sizeof(rtt_buf), &RTT_Stdio, CmdParserTable);
 #endif
-#if PL_CONFIG_HAS_LINE_SENSOR
-    (void)CLS1_ReadAndParseWithCommandTable(reflectance_buf, sizeof(bluetooth_buf), &BT_stdio, CmdParserTable);
-#endif
+
 
 #if PL_CONFIG_HAS_SHELL_QUEUE
 #if PL_SQUEUE_SINGLE_CHAR
