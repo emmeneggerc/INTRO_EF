@@ -36,6 +36,7 @@
 #if PL_CONFIG_HAS_MOTOR
 #include "Motor.h"
 #endif
+<<<<<<< HEAD
 #if PL_CONFIG_HAS_MOTOR_TACHO
 #include "Tacho.h"
 #endif
@@ -44,6 +45,10 @@
 #endif
 #if PL_CONFIG_HAS_MCP4728
 #include "MCP4728.h"
+=======
+#if PL_CONFIG_HAS_LINE_SENSOR
+#include "Reflectance.h"
+>>>>>>> 29fa73574f842db55acb6c5e29c7c02f4e25b4bb
 #endif
 
 void PL_Init(void) {
@@ -73,6 +78,9 @@ void PL_Init(void) {
 #endif
 #if PL_CONFIG_HAS_MOTOR
 	MOT_Init();
+#endif
+#if PL_CONFIG_HAS_LINE_SENSOR
+	REF_Init();
 #endif
 #if PL_CONFIG_HAS_MOTOR_TACHO
 	TACHO_Init();
