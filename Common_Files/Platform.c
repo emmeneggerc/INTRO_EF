@@ -36,6 +36,9 @@
 #if PL_CONFIG_HAS_MOTOR
 #include "Motor.h"
 #endif
+#if PL_CONFIG_HAS_LINE_SENSOR
+#include "Reflectance.h"
+#endif
 
 void PL_Init(void) {
 #if PL_CONFIG_HAS_LED
@@ -64,6 +67,9 @@ void PL_Init(void) {
 #endif
 #if PL_CONFIG_HAS_MOTOR
 	MOT_Init();
+#endif
+#if PL_CONFIG_HAS_LINE_SENSOR
+	REF_Init();
 #endif
 #if PL_CONFIG_HAS_MOTOR_TACHO
 	TACHO_Init();
