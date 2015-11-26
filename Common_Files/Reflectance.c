@@ -26,6 +26,9 @@
 #if PL_CONFIG_HAS_BUZZER
   #include "Buzzer.h"
 #endif
+#if PL_CONFIG_HAS_CONFIG_NVM
+#include "NVM_Config.h"
+#endif
 
 #define REF_NOF_SENSORS       6 /* number of sensors */
 #define REF_SENSOR1_IS_LEFT   1 /* sensor number one is on the left side */
@@ -140,6 +143,7 @@ static void REF_MeasureRaw(SensorTimeType raw[REF_NOF_SENSORS]) {
   for(i=0;i<REF_NOF_SENSORS;i++) {
     SensorFctArray[i].SetInput(); /* turn I/O line as input */
   }
+  FRTOS1_taskENTER_CRITICAL();
   (void)RefCnt_ResetCounter(timerHandle); /* reset timer counter */
   do {
     cnt = 0;
@@ -154,6 +158,7 @@ static void REF_MeasureRaw(SensorTimeType raw[REF_NOF_SENSORS]) {
       }
     }
   } while(cnt!=REF_NOF_SENSORS);
+  FRTOS1_taskEXIT_CRITICAL();
   LED_IR_Off(); /* IR LED's off */
 }
 
@@ -378,8 +383,7 @@ static void REF_StateMachine(void) {
 
   switch (refState) {
     case REF_STATE_INIT:
-      SHELL_SendString((unsigned char*)"INFO: No calibration data present.\r\n");
-      refState = REF_STATE_NOT_CALIBRATED;
+    REF_GetCalibData();
       break;
       
     case REF_STATE_NOT_CALIBRATED:
@@ -408,6 +412,8 @@ static void REF_StateMachine(void) {
       (void)BUZ_Beep(300, 20);
 #endif
 #if REF_START_STOP_CALIB
+      SHELL_SendString((unsigned char*)"saving calib data...\r\n");
+      REF_SaveCalibData();
       if (FRTOS1_xSemaphoreTake(REF_StartStopSem, 0)==pdTRUE) {
         refState = REF_STATE_STOP_CALIBRATION;
       }
@@ -462,4 +468,30 @@ void REF_Init(void) {
     for(;;){} /* error */
   }
 }
+
+void REF_SaveCalibData(void){
+FRTOS1_taskENTER_CRITICAL();
+	if(NVMC_SaveReflectanceData(&SensorCalibMinMax, sizeof(SensorCalibT) == ERR_OK)){
+		SHELL_SendString("DONE! calibration data stored successfully");
+	}else{
+		SHELL_SendString("An error occurred");
+	}
+
+FRTOS1_taskEXIT_CRITICAL();
+}
+
+void REF_GetCalibDat(void){
+	FRTOS1_taskENTER_CRITICAL();
+	SensorCalibMinMax = *(SensorCalibT*)NVMC_GetReflectanceData();
+	if (SensorCalibMinMax == NULL){
+		SHELL_SendString("Calibration data loaded");
+		refState = REF_STATE_READY;
+	}
+	else{
+		SHELL_SendString("No calibration data found");
+		refState = REF_STATE_NOT_CALIBRATED;
+	}
+	FRTOS1_taskEXIT_CRITICAL();
+}
+
 #endif /* PL_HAS_REFLECTANCE */

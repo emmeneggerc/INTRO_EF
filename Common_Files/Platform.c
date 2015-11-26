@@ -36,7 +36,6 @@
 #if PL_CONFIG_HAS_MOTOR
 #include "Motor.h"
 #endif
-<<<<<<< HEAD
 #if PL_CONFIG_HAS_MOTOR_TACHO
 #include "Tacho.h"
 #endif
@@ -45,10 +44,12 @@
 #endif
 #if PL_CONFIG_HAS_MCP4728
 #include "MCP4728.h"
-=======
+#endif
 #if PL_CONFIG_HAS_LINE_SENSOR
 #include "Reflectance.h"
->>>>>>> 29fa73574f842db55acb6c5e29c7c02f4e25b4bb
+#endif
+#if PL_CONFIG_HAS_CONFIG_NVM
+#include "NVM_Config.h"
 #endif
 
 void PL_Init(void) {
@@ -89,6 +90,7 @@ void PL_Init(void) {
 	MCP4728_Init();
 #endif
 
+
 }
 
 void PL_Deinit(void) {
@@ -119,4 +121,8 @@ void PL_Deinit(void) {
 #if PL_CONFIG_HAS_MCP4728
 	MCP4728_Deinit();
 #endif
+#if PL_CONFIG_HAS_CONFIG_NVM
+	NVMC_Init();
+#endif
+
 }
