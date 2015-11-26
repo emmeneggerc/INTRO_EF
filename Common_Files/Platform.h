@@ -18,17 +18,14 @@
 #define PL_CONFIG_HAS_KEYS  		(1 && !defined(PL_CONFIG_DISABLE_HAS_KEYS))
 #define PL_CONFIG_HAS_KBI           (1 && !defined(PL_CONFIG_DISABLE_HAS_KBI) && PL_CONFIG_HAS_KEYS)
 #define PL_CONFIG_HAS_JOYSTICK 		(1 && !defined(PL_CONFIG_DISABLE_HAS_JOYSTICK))
-
 #define PL_CONFIG_HAS_SHELL         (1)
-#define PL_CONFIG_HAS_BLUETOOTH		(1)
 #define PL_CONFIG_HAS_USB_CDC		(1)
 #define PL_CONFIG_HAS_TRIGGER		(1)
 #define PL_CONFIG_HAS_DEBOUNCE		(1)
 #define PL_CONFIG_HAS_RTOS			(1)
-#define PL_CONFIG_HAS_MOTOR			(1)
+
 #define PL_CONFIG_HAS_SHELL_QUEUE   (1 && PL_CONFIG_HAS_SHELL)
 #define PL_SQUEUE_SINGLE_CHAR		(1 && PL_CONFIG_HAS_SHELL)
-#define PL_CONFIG_HAS_MOTOR_TACHO	(1)
 #define PL_CONFIG_HAS_CONFIG_NVM 	(1)
 
 #if defined(PL_BOARD_IS_FRDM)
@@ -36,15 +33,15 @@
 #define PL_CONFIG_NOF_KEYS (7)
 #define PL_CONFIG_HAS_TETRIS (1)
 
-
 #elif defined(PL_BOARD_IS_ROBO)
+#define PL_CONFIG_HAS_BLUETOOTH		(1)
 #define PL_CONFIG_NOF_LED (2)
 #define PL_CONFIG_NOF_KEYS (1)
 #define PL_CONFIG_DISABLE_HAS_JOYSTICK (1)
 #define PL_CONFIG_HAS_BUZZER (1)
 #define PL_CONFIG_HAS_LINE_SENSOR (1)
-
-
+#define PL_CONFIG_HAS_MOTOR			(1)
+#define PL_CONFIG_HAS_MOTOR_TACHO	(1)
 
 #else
 #error "make sure you have platform defined in compiler settings!"

@@ -13,7 +13,7 @@
 #include "Application.h"
 #include "FRTOS1.h"
 #if PL_CONFIG_HAS_USB_CDC
-  #include "USB1.h"
+#include "USB1.h"
 #endif
 #if PL_CONFIG_HAS_BLUETOOTH
   #include "BT1.h"
