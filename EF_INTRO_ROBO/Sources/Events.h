@@ -82,6 +82,24 @@
 #include "BitIoLdd11.h"
 #include "IR6.h"
 #include "BitIoLdd12.h"
+#include "IFsh1.h"
+#include "IntFlashLdd1.h"
+#include "Q4CLeft.h"
+#include "C11.h"
+#include "BitIoLdd14.h"
+#include "C21.h"
+#include "BitIoLdd15.h"
+#include "Q4CRight.h"
+#include "C12.h"
+#include "BitIoLdd16.h"
+#include "C22.h"
+#include "BitIoLdd17.h"
+#include "TU_MCP4728.h"
+#include "MCP4728_LDAC.h"
+#include "BitIoLdd18.h"
+#include "MCP4728_RDY.h"
+#include "BitIoLdd19.h"
+#include "I2C1.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -207,6 +225,61 @@ void FRTOS1_vApplicationMallocFailedHook(void);
 **     Returns     : Nothing
 ** ===================================================================
 */
+
+/*
+** ===================================================================
+**     Event       :  IFsh1_OnWriteEnd (module Events)
+**
+**     Component   :  IFsh1 [IntFLASH]
+*/
+/*!
+**     @brief
+**         Event is called after a write operation to FLASH memory is
+**         finished (except [SetPage]). This event is available only if
+**         an [Interrupt service/event] is selected.
+*/
+/* ===================================================================*/
+void IFsh1_OnWriteEnd(void);
+
+/*
+** ===================================================================
+**     Event       :  I2C1_OnMasterBlockSent (module Events)
+**
+**     Component   :  I2C1 [I2C_LDD]
+*/
+/*!
+**     @brief
+**         This event is called when I2C in master mode finishes the
+**         transmission of the data successfully. This event is not
+**         available for the SLAVE mode and if MasterSendBlock is
+**         disabled. 
+**     @param
+**         UserDataPtr     - Pointer to the user or
+**                           RTOS specific data. This pointer is passed
+**                           as the parameter of Init method.
+*/
+/* ===================================================================*/
+void I2C1_OnMasterBlockSent(LDD_TUserData *UserDataPtr);
+
+/*
+** ===================================================================
+**     Event       :  I2C1_OnMasterBlockReceived (module Events)
+**
+**     Component   :  I2C1 [I2C_LDD]
+*/
+/*!
+**     @brief
+**         This event is called when I2C is in master mode and finishes
+**         the reception of the data successfully. This event is not
+**         available for the SLAVE mode and if MasterReceiveBlock is
+**         disabled.
+**     @param
+**         UserDataPtr     - Pointer to the user or
+**                           RTOS specific data. This pointer is passed
+**                           as the parameter of Init method.
+*/
+/* ===================================================================*/
+void I2C1_OnMasterBlockReceived(LDD_TUserData *UserDataPtr);
 
 /* END Events */
 

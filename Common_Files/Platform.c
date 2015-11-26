@@ -36,6 +36,15 @@
 #if PL_CONFIG_HAS_MOTOR
 #include "Motor.h"
 #endif
+#if PL_CONFIG_HAS_MOTOR_TACHO
+#include "Tacho.h"
+#endif
+#if PL_CONFIG_HAS_QUAD_CALIBRATION
+#include "QuadCalib.h"
+#endif
+#if PL_CONFIG_HAS_MCP4728
+#include "MCP4728.h"
+#endif
 
 void PL_Init(void) {
 #if PL_CONFIG_HAS_LED
@@ -68,6 +77,9 @@ void PL_Init(void) {
 #if PL_CONFIG_HAS_MOTOR_TACHO
 	TACHO_Init();
 #endif
+#if PL_CONFIG_HAS_MCP4728
+	MCP4728_Init();
+#endif
 
 }
 
@@ -95,5 +107,8 @@ void PL_Deinit(void) {
 #endif
 #if PL_CONFIG_HAS_MOTOR_TACHO
 	TACHO_Deinit();
+#endif
+#if PL_CONFIG_HAS_MCP4728
+	MCP4728_Deinit();
 #endif
 }
