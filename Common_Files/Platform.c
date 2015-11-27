@@ -52,6 +52,8 @@
 #include "NVM_Config.h"
 #endif
 
+
+
 void PL_Init(void) {
 #if PL_CONFIG_HAS_LED
 	LED_Init();
@@ -121,8 +123,11 @@ void PL_Deinit(void) {
 #if PL_CONFIG_HAS_MCP4728
 	MCP4728_Deinit();
 #endif
+#if PL_CONFIG_HAS_LINE_SENSOR
+	REF_Deinit();
+#endif
 #if PL_CONFIG_HAS_CONFIG_NVM
-	NVMC_Init();
+	NVMC_Deinit();
 #endif
 
 }

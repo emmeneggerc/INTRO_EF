@@ -42,6 +42,9 @@
 #define PL_CONFIG_HAS_LINE_SENSOR (1)
 #define PL_CONFIG_HAS_MOTOR			(1)
 #define PL_CONFIG_HAS_MOTOR_TACHO	(1)
+#define PL_CONFIG_HAS_QUAD_CALIBRATION (1)
+#define PL_CONFIG_HAS_MCP4728 (1)
+
 
 #else
 #error "make sure you have platform defined in compiler settings!"

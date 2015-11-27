@@ -30,6 +30,8 @@
 #include "NVM_Config.h"
 #endif
 
+#define NVM_ENABLED (0)
+
 #define REF_NOF_SENSORS       6 /* number of sensors */
 #define REF_SENSOR1_IS_LEFT   1 /* sensor number one is on the left side */
 #define REF_MIN_NOISE_VAL     0x40   /* values below this are not added to the weighted sum */
@@ -41,14 +43,16 @@
   static xSemaphoreHandle REF_StartStopSem = NULL;
 #endif
 
-typedef enum {
-  REF_STATE_INIT,
-  REF_STATE_NOT_CALIBRATED,
-  REF_STATE_START_CALIBRATION,
-  REF_STATE_CALIBRATING,
-  REF_STATE_STOP_CALIBRATION,
-  REF_STATE_READY
-} RefStateType;
+
+  typedef enum {
+    REF_STATE_INIT,
+    REF_STATE_NOT_CALIBRATED,
+    REF_STATE_START_CALIBRATION,
+    REF_STATE_CALIBRATING,
+    REF_STATE_STOP_CALIBRATION,
+    REF_STATE_READY
+  } RefStateType;
+
 static volatile RefStateType refState = REF_STATE_INIT; /* state machine state */
 
 static LDD_TDeviceData *timerHandle;
@@ -114,6 +118,9 @@ static const SensorFctType SensorFctArray[REF_NOF_SENSORS] = {
   {S6_SetOutput, S6_SetInput, S6_SetVal, S6_GetVal},
 };
 
+RefStateType REF_GetCalibData(void);
+void REF_SaveCalibData(void);
+
 #if REF_START_STOP_CALIB
 void REF_CalibrateStartStop(void) {
   if (refState==REF_STATE_NOT_CALIBRATED || refState==REF_STATE_CALIBRATING || refState==REF_STATE_READY) {
@@ -152,6 +159,11 @@ static void REF_MeasureRaw(SensorTimeType raw[REF_NOF_SENSORS]) {
       if (raw[i]==MAX_SENSOR_VALUE) { /* not measured yet? */
         if (SensorFctArray[i].GetVal()==0) {
           raw[i] = timerVal;
+
+        }else{
+        	if(timerVal > 0xFF00){
+        		break;
+        	}
         }
       } else { /* have value */
         cnt++;
@@ -383,8 +395,14 @@ static void REF_StateMachine(void) {
 
   switch (refState) {
     case REF_STATE_INIT:
-    REF_GetCalibData();
-      break;
+#if NVM_ENABLED
+    refState = REF_GetCalibData();
+#else
+    refState = REF_STATE_NOT_CALIBRATED;
+    SHELL_SendString("INFO: Sensor not calibrated");
+#endif
+    break;
+
       
     case REF_STATE_NOT_CALIBRATED:
       REF_MeasureRaw(SensorRaw);
@@ -409,11 +427,9 @@ static void REF_StateMachine(void) {
     case REF_STATE_CALIBRATING:
       REF_CalibrateMinMax(SensorCalibMinMax.minVal, SensorCalibMinMax.maxVal, SensorRaw);
 #if PL_CONFIG_HAS_BUZZER
-      (void)BUZ_Beep(300, 20);
+     (void)BUZ_Beep(300, 20);
 #endif
 #if REF_START_STOP_CALIB
-      SHELL_SendString((unsigned char*)"saving calib data...\r\n");
-      REF_SaveCalibData();
       if (FRTOS1_xSemaphoreTake(REF_StartStopSem, 0)==pdTRUE) {
         refState = REF_STATE_STOP_CALIBRATION;
       }
@@ -422,6 +438,10 @@ static void REF_StateMachine(void) {
     
     case REF_STATE_STOP_CALIBRATION:
       SHELL_SendString((unsigned char*)"...stopping calibration.\r\n");
+#if NVM_ENABLED
+      SHELL_SendString((unsigned char*)"saving calib data...\r\n");
+      REF_SaveCalibData();
+#endif
       refState = REF_STATE_READY;
       break;
         
@@ -471,27 +491,30 @@ void REF_Init(void) {
 
 void REF_SaveCalibData(void){
 FRTOS1_taskENTER_CRITICAL();
-	if(NVMC_SaveReflectanceData(&SensorCalibMinMax, sizeof(SensorCalibT) == ERR_OK)){
-		SHELL_SendString("DONE! calibration data stored successfully");
+	if(NVMC_SaveReflectanceData(&SensorCalibMinMax, sizeof(SensorCalibMinMax)) == ERR_OK){
+		SHELL_SendString("Calib ok");
 	}else{
 		SHELL_SendString("An error occurred");
 	}
 
 FRTOS1_taskEXIT_CRITICAL();
 }
-
-void REF_GetCalibDat(void){
+RefStateType REF_GetCalibData(void){
 	FRTOS1_taskENTER_CRITICAL();
 	SensorCalibMinMax = *(SensorCalibT*)NVMC_GetReflectanceData();
-	if (SensorCalibMinMax == NULL){
-		SHELL_SendString("Calibration data loaded");
-		refState = REF_STATE_READY;
+	if ((void*)&SensorCalibMinMax == NULL){
+		SHELL_SendString("No calibration data found");
+		FRTOS1_taskEXIT_CRITICAL();
+		return (RefStateType) REF_STATE_NOT_CALIBRATED;
 	}
 	else{
-		SHELL_SendString("No calibration data found");
-		refState = REF_STATE_NOT_CALIBRATED;
+		SHELL_SendString("Calibration data loaded");
+		FRTOS1_taskEXIT_CRITICAL();
+		return (RefStateType) REF_STATE_READY;
+
 	}
-	FRTOS1_taskEXIT_CRITICAL();
+	return (RefStateType) REF_STATE_INIT;
+
 }
 
 #endif /* PL_HAS_REFLECTANCE */
