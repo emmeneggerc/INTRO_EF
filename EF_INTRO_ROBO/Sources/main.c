@@ -104,6 +104,8 @@
 #include "HF1.h"
 #include "GI2C1.h"
 #include "I2C1.h"
+#include "TU_US.h"
+#include "TRIG.h"
 #include "PE_Types.h"
 #include "PE_Error.h"
 #include "PE_Const.h"

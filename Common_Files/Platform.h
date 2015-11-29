@@ -44,7 +44,10 @@
 #define PL_CONFIG_HAS_MOTOR_TACHO	(1)
 #define PL_CONFIG_HAS_QUAD_CALIBRATION (1)
 #define PL_CONFIG_HAS_MCP4728 (1)
-
+#define PL_CONFIG_HAS_QUADRATURE (1)
+#define PL_CONFIG_HAS_ULTRASONIC (1)
+#define PL_CONFIG_HAS_PID               (1 && PL_CONFIG_HAS_MOTOR_TACHO)
+#define PL_CONFIG_HAS_DRIVE             (1 && PL_CONFIG_HAS_PID)
 
 #else
 #error "make sure you have platform defined in compiler settings!"

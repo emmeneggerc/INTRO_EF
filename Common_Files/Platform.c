@@ -51,8 +51,18 @@
 #if PL_CONFIG_HAS_CONFIG_NVM
 #include "NVM_Config.h"
 #endif
-
-
+#if PL_CONFIG_HAS_MOTOR_QUAD
+#include "NVM_Config.h"
+#endif
+#if PL_CONFIG_HAS_ULTRASONIC
+  #include "Ultrasonic.h"
+#endif
+#if PL_CONFIG_HAS_PID
+  #include "PID.h"
+#endif
+#if PL_CONFIG_HAS_DRIVE
+  #include "Drive.h"
+#endif
 
 void PL_Init(void) {
 #if PL_CONFIG_HAS_LED
@@ -91,7 +101,15 @@ void PL_Init(void) {
 #if PL_CONFIG_HAS_MCP4728
 	MCP4728_Init();
 #endif
-
+#if PL_CONFIG_HAS_ULTRASONIC
+  US_Init();
+#endif
+#if PL_CONFIG_HAS_PID
+  PID_Init();
+#endif
+#if PL_CONFIG_HAS_DRIVE
+  DRV_Init();
+#endif
 
 }
 
@@ -128,6 +146,15 @@ void PL_Deinit(void) {
 #endif
 #if PL_CONFIG_HAS_CONFIG_NVM
 	NVMC_Deinit();
+#endif
+#if PL_CONFIG_HAS_ULTRASONIC
+  US_Deinit();
+#endif
+#if PL_CONFIG_HAS_DRIVE
+  DRV_Deinit();
+#endif
+#if PL_CONFIG_HAS_PID
+  PID_Deinit();
 #endif
 
 }

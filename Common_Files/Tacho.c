@@ -20,7 +20,7 @@
   /*!< \todo speed sample period in ms. Make sure that speed is sampled at the given rate. */
 #define NOF_HISTORY (16U+1U)
   /*!< number of samples for speed calculation (>0):the more, the better, but the slower. */
-#define NOF_ROUND_PULSE (1*75)
+#define NOF_ROUND_PULSE (1*75) // Übersetzungsverhältniss der Motorengetriebe!
 /*!< number of pulses */
 #define SPEED_CALC_PERIOD_MS (1)
 /*!<sampling time of calcspeed */

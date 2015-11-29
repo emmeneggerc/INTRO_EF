@@ -85,21 +85,32 @@
 #include "IFsh1.h"
 #include "IntFlashLdd1.h"
 #include "Q4CLeft.h"
-#include "C11.h"
+#include "C13.h"
+#include "BitIoLdd20.h"
+#include "C23.h"
+#include "BitIoLdd21.h"
+//#include "C11.h"
 #include "BitIoLdd14.h"
-#include "C21.h"
+//#include "C21.h"
 #include "BitIoLdd15.h"
 #include "Q4CRight.h"
 #include "C12.h"
-#include "BitIoLdd16.h"
+//#include "BitIoLdd16.h"
 #include "C22.h"
-#include "BitIoLdd17.h"
+//#include "BitIoLdd17.h"
 #include "TU_MCP4728.h"
 #include "MCP4728_LDAC.h"
 #include "BitIoLdd18.h"
 #include "MCP4728_RDY.h"
 #include "BitIoLdd19.h"
+#include "QuadInt.h"
+#include "TimerIntLdd2.h"
+#include "TU_QuadInt.h"
+#include "HF1.h"
+#include "GI2C1.h"
 #include "I2C1.h"
+#include "TU_US.h"
+#include "TRIG.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -241,45 +252,91 @@ void FRTOS1_vApplicationMallocFailedHook(void);
 /* ===================================================================*/
 void IFsh1_OnWriteEnd(void);
 
+void GI2C1_OnRequestBus(void);
 /*
 ** ===================================================================
-**     Event       :  I2C1_OnMasterBlockSent (module Events)
+**     Event       :  GI2C1_OnRequestBus (module Events)
 **
-**     Component   :  I2C1 [I2C_LDD]
+**     Component   :  GI2C1 [GenericI2C]
+**     Description :
+**         User event which will be called before accessing the I2C bus.
+**         Useful for starting a critical section.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
 */
-/*!
-**     @brief
-**         This event is called when I2C in master mode finishes the
-**         transmission of the data successfully. This event is not
-**         available for the SLAVE mode and if MasterSendBlock is
-**         disabled. 
-**     @param
-**         UserDataPtr     - Pointer to the user or
-**                           RTOS specific data. This pointer is passed
-**                           as the parameter of Init method.
+
+void GI2C1_OnReleaseBus(void);
+/*
+** ===================================================================
+**     Event       :  GI2C1_OnReleaseBus (module Events)
+**
+**     Component   :  GI2C1 [GenericI2C]
+**     Description :
+**         User event which will be called after accessing the I2C bus.
+**         Useful for ending a critical section.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
 */
-/* ===================================================================*/
-void I2C1_OnMasterBlockSent(LDD_TUserData *UserDataPtr);
 
 /*
 ** ===================================================================
-**     Event       :  I2C1_OnMasterBlockReceived (module Events)
+**     Event       :  QuadInt_OnInterrupt (module Events)
 **
-**     Component   :  I2C1 [I2C_LDD]
+**     Component   :  QuadInt [TimerInt]
+**     Description :
+**         When a timer interrupt occurs this event is called (only
+**         when the component is enabled - <Enable> and the events are
+**         enabled - <EnableEvent>). This event is enabled only if a
+**         <interrupt service/event> is enabled.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void QuadInt_OnInterrupt(void);
+
+/*
+** ===================================================================
+**     Event       :  TU_US_OnCounterRestart (module Events)
+**
+**     Component   :  TU_US [TimerUnit_LDD]
 */
 /*!
 **     @brief
-**         This event is called when I2C is in master mode and finishes
-**         the reception of the data successfully. This event is not
-**         available for the SLAVE mode and if MasterReceiveBlock is
-**         disabled.
+**         Called if counter overflow/underflow or counter is
+**         reinitialized by modulo or compare register matching.
+**         OnCounterRestart event and Timer unit must be enabled. See
+**         [SetEventMask] and [GetEventMask] methods. This event is
+**         available only if a [Interrupt] is enabled.
 **     @param
 **         UserDataPtr     - Pointer to the user or
-**                           RTOS specific data. This pointer is passed
-**                           as the parameter of Init method.
+**                           RTOS specific data. The pointer passed as
+**                           the parameter of Init method.
 */
 /* ===================================================================*/
-void I2C1_OnMasterBlockReceived(LDD_TUserData *UserDataPtr);
+void TU_US_OnCounterRestart(LDD_TUserData *UserDataPtr);
+
+/*
+** ===================================================================
+**     Event       :  TU_US_OnChannel0 (module Events)
+**
+**     Component   :  TU_US [TimerUnit_LDD]
+*/
+/*!
+**     @brief
+**         Called if compare register match the counter registers or
+**         capture register has a new content. OnChannel0 event and
+**         Timer unit must be enabled. See [SetEventMask] and
+**         [GetEventMask] methods. This event is available only if a
+**         [Interrupt] is enabled.
+**     @param
+**         UserDataPtr     - Pointer to the user or
+**                           RTOS specific data. The pointer passed as
+**                           the parameter of Init method.
+*/
+/* ===================================================================*/
+void TU_US_OnChannel0(LDD_TUserData *UserDataPtr);
 
 /* END Events */
 
