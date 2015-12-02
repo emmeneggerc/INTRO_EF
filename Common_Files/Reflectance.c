@@ -162,6 +162,7 @@ static void REF_MeasureRaw(SensorTimeType raw[REF_NOF_SENSORS]) {
 
         }else{
         	if(timerVal > 0xFF00){
+        		cnt = REF_NOF_SENSORS;
         		break;
         	}
         }
@@ -465,7 +466,7 @@ static void ReflTask (void *pvParameters) {
 //  SQUEUE_SendString("Reflectance task started!\r\n");
   for(;;) {
     REF_StateMachine();
-    FRTOS1_vTaskDelay(10/portTICK_RATE_MS);
+    FRTOS1_vTaskDelay(50/portTICK_RATE_MS);
   }
 }
 

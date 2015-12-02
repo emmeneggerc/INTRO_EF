@@ -29,7 +29,7 @@
 #define MCP4728_GC_READ             0x0C /* general call read address bits command */
 
 #define MCP4728_I2C_ADDRESS 0x61 /* default address of device (4728A1) for new/production Zumo */
-//  #define MCP4728_I2C_ADDRESS 0x60 /* default address of device (4728UN) for prototype Zumo V2 */
+//#define MCP4728_I2C_ADDRESS 0x60 /* default address of device (4728UN) for prototype Zumo V2 */
 
 bool MCP4728_IsBusy(void) {
 #if PL_CONFIG_HAS_MCP4728_RDY
