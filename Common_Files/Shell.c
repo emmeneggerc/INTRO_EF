@@ -55,6 +55,12 @@
 #if PL_CONFIG_HAS_PID
   #include "PID.h"
 #endif
+#if PL_CONFIG_HAS_TURN
+  #include "Turn.h"
+#endif
+#if PL_CONFIG_HAS_LINE_FOLLOW
+  #include "LineFollow.h"
+#endif
 
 
 
@@ -108,6 +114,12 @@ static const CLS1_ParseCommandCallback CmdParserTable[] =
 #endif
 #if PL_CONFIG_HAS_DRIVE
   DRV_ParseCommand,
+#endif
+#if PL_CONFIG_HAS_TURN
+  TURN_ParseCommand,
+#endif
+#if PL_CONFIG_HAS_LINE_FOLLOW
+  LF_ParseCommand,
 #endif
 
   NULL /* Sentinel */

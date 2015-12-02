@@ -49,6 +49,8 @@
 #define PL_CONFIG_HAS_ULTRASONIC (1)
 #define PL_CONFIG_HAS_PID               (1 && PL_CONFIG_HAS_MOTOR_TACHO)
 #define PL_CONFIG_HAS_DRIVE             (1 && PL_CONFIG_HAS_PID)
+#define PL_CONFIG_HAS_TURN		(1)
+#define PL_CONFIG_HAS_LINE_FOLLOW		(1)
 
 #else
 #error "make sure you have platform defined in compiler settings!"
