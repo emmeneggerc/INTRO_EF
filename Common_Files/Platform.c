@@ -69,6 +69,10 @@
 #if PL_CONFIG_HAS_LINE_FOLLOW
 #include "LineFollow.h"
 #endif
+#if PL_CONFIG_HAS_RADIO
+#include "RNet_App.h"
+#include "RNet_AppConfig.h"
+#endif
 
 void PL_Init(void) {
 #if PL_CONFIG_HAS_LED

@@ -25,7 +25,7 @@ typedef struct {
   int32_t integral;
 } PID_Config;
 
-#define REF_MAX_LINE_VALUE  0x7777 // ??
+//#define REF_MAX_LINE_VALUE  0x7777 // ??
 
 /*! \todo Add your own additional configurations as needed, at least with a position config */
 static PID_Config lineFwConfig;
@@ -476,6 +476,8 @@ void PID_Init(void) {
   speedRightConfig.integral = 0;
   speedRightConfig.maxSpeedPercent = speedLeftConfig.maxSpeedPercent;
 #endif
+#define DEFAULT (1)
+#if DEFAULT
   lineFwConfig.pFactor100 = 5500;
   lineFwConfig.iFactor100 = 15;
   lineFwConfig.dFactor100 = 100;
@@ -483,6 +485,16 @@ void PID_Init(void) {
   lineFwConfig.maxSpeedPercent = 15;
   lineFwConfig.lastError = 0;
   lineFwConfig.integral = 0;
+#else
+  lineFwConfig.pFactor100 = 5500;
+  lineFwConfig.iFactor100 = 45;
+  lineFwConfig.dFactor100 = 150;
+  lineFwConfig.iAntiWindup = 100000;
+  lineFwConfig.maxSpeedPercent = 15;
+  lineFwConfig.lastError = 0;
+  lineFwConfig.integral = 0;
+#endif
+
 
   posLeftConfig.pFactor100 = 1000;
   posLeftConfig.iFactor100 = 2;
