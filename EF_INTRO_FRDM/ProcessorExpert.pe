@@ -3,10 +3,10 @@
   <Header>
     <Name>EF_INTRO_FRDM</Name>
     <SavedBy>Cornel</SavedBy>
-    <ModificationStamp>33</ModificationStamp>
+    <ModificationStamp>34</ModificationStamp>
     <Date>2015-09-25</Date>
     <IDE>Eclipse IDE</IDE>
-    <PEversion>1.12.1.RT7_b1531-0480</PEversion>
+    <PEversion>1.12.0.RT7_b1515-0427</PEversion>
   </Header>
   <Options>
     <ProjectMainModule>main</ProjectMainModule>
@@ -26091,7 +26091,7 @@
         <ItemSymbol>IRQ</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>IRQ</Value>
+        <Value />
         <RegCompType>IRQ</RegCompType>
         <RegCompRepository>file:/${ProcessorExpert_loc}/Repositories/Kinetis_Repository</RegCompRepository>
         <InheritedComponentState />

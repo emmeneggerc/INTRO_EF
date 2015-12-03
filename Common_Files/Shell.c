@@ -61,6 +61,20 @@
 #if PL_CONFIG_HAS_LINE_FOLLOW
   #include "LineFollow.h"
 #endif
+#if PL_CONFIG_HAS_RADIO
+  #include "RApp.h"
+  #include "RNet_App.h"
+  #include "RNetConf.h"
+#endif
+#if RNET_CONFIG_REMOTE_STDIO
+  #include "RStdIO.h"
+#endif
+#if PL_CONFIG_HAS_REMOTE
+  #include "Remote.h"
+#endif
+#if PL_CONFIG_HAS_LINE_MAZE
+  #include "Maze.h"
+#endif
 
 
 
@@ -120,6 +134,18 @@ static const CLS1_ParseCommandCallback CmdParserTable[] =
 #endif
 #if PL_CONFIG_HAS_LINE_FOLLOW
   LF_ParseCommand,
+#endif
+#if PL_CONFIG_HAS_RADIO
+#if RNET1_PARSE_COMMAND_ENABLED
+  RNET1_ParseCommand,
+#endif
+  RNETA_ParseCommand,
+#endif
+#if PL_CONFIG_HAS_REMOTE
+  REMOTE_ParseCommand,
+#endif
+#if PL_CONFIG_HAS_LINE_MAZE
+  MAZE_ParseCommand,
 #endif
 
   NULL /* Sentinel */

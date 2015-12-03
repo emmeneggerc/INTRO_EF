@@ -71,7 +71,6 @@
 #endif
 #if PL_CONFIG_HAS_RADIO
 #include "RNet_App.h"
-#include "RNet_AppConfig.h"
 #endif
 
 void PL_Init(void) {
@@ -125,6 +124,9 @@ void PL_Init(void) {
 #endif
 #if PL_CONFIG_HAS_LINE_FOLLOW
   LF_Init();
+#endif
+#if PL_CONFIG_HAS_RADIO
+  RNETA_Init();
 #endif
 }
 
