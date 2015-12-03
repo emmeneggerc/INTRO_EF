@@ -341,6 +341,9 @@ REF_LineKind REF_GetLineKind(void) {
 static void REF_Measure(void) {
   ReadCalibrated(SensorCalibrated, SensorRaw);
   refCenterLineVal = ReadLine(SensorCalibrated, SensorRaw, REF_USE_WHITE_LINE);
+ #if PL_CONFIG_HAS_LINE_FOLLOW
+  refLineKind = ReadLineKind(SensorCalibrated);
+#endif
 }
 
 static uint8_t PrintHelp(const CLS1_StdIOType *io) {
