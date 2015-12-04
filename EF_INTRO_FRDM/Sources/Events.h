@@ -68,6 +68,8 @@
 #include "BitIoLdd5.h"
 #include "SM1.h"
 #include "SMasterLdd1.h"
+#include "AD1.h"
+#include "AdcLdd1.h"
 #include "LED1.h"
 #include "LEDpin1.h"
 #include "LED2.h"
