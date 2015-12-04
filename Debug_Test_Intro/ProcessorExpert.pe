@@ -3,10 +3,10 @@
   <Header>
     <Name>Debug_Test_Intro</Name>
     <SavedBy>Cornel</SavedBy>
-    <ModificationStamp>7</ModificationStamp>
+    <ModificationStamp>8</ModificationStamp>
     <Date>2015-09-17</Date>
     <IDE>Eclipse IDE</IDE>
-    <PEversion>1.12.0.RT7_b1515-0427</PEversion>
+    <PEversion>1.12.1.RT7_b1531-0480</PEversion>
   </Header>
   <Options>
     <ProjectMainModule>main</ProjectMainModule>
@@ -4457,9 +4457,9 @@
       <ItemId2>6</ItemId2>
       <Value2>true</Value2>
       <ItemId3>12</ItemId3>
-      <Value3>true</Value3>
+      <Value3>false</Value3>
       <ItemId4>15</ItemId4>
-      <Value4>true</Value4>
+      <Value4>false</Value4>
     </BoolList_BeanConfig>
     <BoolList_TaskConfig>
       <Count>0</Count>
@@ -5510,7 +5510,7 @@
     <BeanType>LED</BeanType>
     <Name>LED2</Name>
     <CompNumb>12</CompNumb>
-    <CompEnabled>true</CompEnabled>
+    <CompEnabled>false</CompEnabled>
     <GenCodeMode>ALWAYS_WRITE</GenCodeMode>
     <IconName>Led</IconName>
     <UserFolderName />
@@ -6299,7 +6299,7 @@
     <BeanType>ADC</BeanType>
     <Name>AD1</Name>
     <CompNumb>15</CompNumb>
-    <CompEnabled>true</CompEnabled>
+    <CompEnabled>false</CompEnabled>
     <GenCodeMode>ALWAYS_WRITE</GenCodeMode>
     <IconName>AD</IconName>
     <UserFolderName />
@@ -6764,7 +6764,7 @@
               <ItemSymbol>_CnvTmg</ItemSymbol>
               <ReadOnly>false</ReadOnly>
               <UserReadOnly>false</UserReadOnly>
-              <Value>init:;prec:5%;RTS:none;clksrc_presc[SpeedMode0]Auto select;clksrc_presc[SpeedMode1]Auto select;clksrc_presc[SpeedMode2]Auto select;clksrc_presc[SpeedMode3]Auto select;dev_presc[SpeedMode3]Auto select;clksrc_presc[SpeedMode4]Auto select;dev_presc[SpeedMode4]Auto select;clksrc_presc[SpeedMode5]Auto select;dev_presc[SpeedMode5]Auto select;clksrc_presc[SpeedMode6]Auto select;dev_presc[SpeedMode6]Auto select;clksrc_presc[SpeedMode7]Auto select;dev_presc[SpeedMode7]Auto select</Value>
+              <Value>19.230769 µs</Value>
               <RuntimeSetting>0</RuntimeSetting>
               <ReqDevPrescHigh>-1</ReqDevPrescHigh>
               <ReqDevPrescLow>-1</ReqDevPrescLow>

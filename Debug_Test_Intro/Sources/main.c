@@ -34,9 +34,6 @@
 #include "LEDpin1.h"
 #include "BitIoLdd1.h"
 #include "WAIT1.h"
-#include "LED2.h"
-#include "LEDpin2.h"
-#include "BitIoLdd2.h"
 /* Including shared modules, which are used for whole project */
 #include "PE_Types.h"
 #include "PE_Error.h"
@@ -56,14 +53,8 @@ int main(void)
 
   /* Write your code here */
   for(;;){
-  LED1_On();
-  WAIT1_Waitms(50);
-  LED1_Off();
-  WAIT1_Waitms(50);
- /* LED2_On(); */
-  WAIT1_Waitms(50);
-  /*LED2_Off();  */
-  WAIT1_Waitms(50);
+  LED1_Neg();
+  WAIT1_Waitms(500);
   }
   /* For example: for(;;) { } */
 
