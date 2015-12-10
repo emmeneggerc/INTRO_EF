@@ -30,9 +30,16 @@
 #if PL_CONFIG_HAS_RTOS
 #include "RTOS.h"
 #endif
+
+#if PL_CONFIG_HAS_REMOTE
+#include "RApp.h".h"
+#include "RNet_App.h"
+#endif
 #if PL_CONFIG_HAS_KEYS
 void APP_KeyEvntHandler(EVNT_Handle event) {
-
+#if PL_CONFIG_HAS_REMOTE
+	uint8_t	data;
+#endif
 	switch (event) {
 
 #if PL_CONFIG_NOF_KEYS >= 1
@@ -42,12 +49,17 @@ void APP_KeyEvntHandler(EVNT_Handle event) {
 #endif
 #if PL_CONFIG_HAS_SHELL
 		CLS1_SendStr("SW1 pressed\r\n", CLS1_GetStdio()->stdOut);
-		break;
+
 #endif
 #if PL_CONFIG_HAS_BUZZER
 		BUZ_Beep(500, 500);
-		break;
+
 #endif
+#if PL_CONFIG_HAS_REMOTE
+		data = 'A';
+		(void)RAPP_SendPayloadDataBlock(&data, sizeof(data), RAPP_MSG_TYPE_JOYSTICK_BTN, RNETA_GetDestAddr(), RPHY_PACKET_FLAGS_REQ_ACK);
+#endif
+		break;
 #endif
 
 #if PL_CONFIG_NOF_KEYS >= 2
@@ -57,6 +69,10 @@ void APP_KeyEvntHandler(EVNT_Handle event) {
 #endif
 #if PL_CONFIG_HAS_SHELL
 		CLS1_SendStr("SW2 pressed\r\n",CLS1_GetStdio()->stdOut);
+#endif
+#if PL_CONFIG_HAS_REMOTE
+		data = 'B';
+		(void)RAPP_SendPayloadDataBlock(&data, sizeof(data), RAPP_MSG_TYPE_JOYSTICK_BTN, RNETA_GetDestAddr(), RPHY_PACKET_FLAGS_REQ_ACK);
 #endif
 		break;
 #endif
@@ -69,6 +85,10 @@ void APP_KeyEvntHandler(EVNT_Handle event) {
 #if PL_CONFIG_HAS_SHELL
 		CLS1_SendStr("SW3 pressed\r\n", CLS1_GetStdio()->stdOut);
 #endif
+#if PL_CONFIG_HAS_REMOTE
+		data = 'C';
+		(void)RAPP_SendPayloadDataBlock(&data, sizeof(data), RAPP_MSG_TYPE_JOYSTICK_BTN, RNETA_GetDestAddr(), RPHY_PACKET_FLAGS_REQ_ACK);
+#endif
 		break;
 #endif
 
@@ -79,6 +99,10 @@ void APP_KeyEvntHandler(EVNT_Handle event) {
 #endif
 #if PL_CONFIG_HAS_SHELL
 		CLS1_SendStr("SW4 pressed\r\n", CLS1_GetStdio()->stdOut);
+#endif
+#if PL_CONFIG_HAS_REMOTE
+		data = 'D';
+		(void)RAPP_SendPayloadDataBlock(&data, sizeof(data), RAPP_MSG_TYPE_JOYSTICK_BTN, RNETA_GetDestAddr(), RPHY_PACKET_FLAGS_REQ_ACK);
 #endif
 		break;
 #endif
@@ -96,6 +120,10 @@ void APP_KeyEvntHandler(EVNT_Handle event) {
 #else
 		CLS1_SendStr("SW5 pressed\r\n", CLS1_GetStdio()->stdOut);
 #endif
+#if PL_CONFIG_HAS_REMOTE
+		data = 'E';
+		(void)RAPP_SendPayloadDataBlock(&data, sizeof(data), RAPP_MSG_TYPE_JOYSTICK_BTN, RNETA_GetDestAddr(), RPHY_PACKET_FLAGS_REQ_ACK);
+#endif
 		break;
 #endif
 
@@ -106,6 +134,10 @@ void APP_KeyEvntHandler(EVNT_Handle event) {
 #endif
 #if PL_CONFIG_HAS_SHELL
 		CLS1_SendStr("SW6 pressed\r\n", CLS1_GetStdio()->stdOut);
+#endif
+#if PL_CONFIG_HAS_REMOTE
+		data = 'F';
+		(void)RAPP_SendPayloadDataBlock(&data, sizeof(data), RAPP_MSG_TYPE_JOYSTICK_BTN, RNETA_GetDestAddr(), RPHY_PACKET_FLAGS_REQ_ACK);
 #endif
 		break;
 #endif
@@ -118,7 +150,10 @@ void APP_KeyEvntHandler(EVNT_Handle event) {
 #if PL_CONFIG_HAS_SHELL
 		CLS1_SendStr("SW7 pressed\r\n", CLS1_GetStdio()->stdOut);
 #endif
-
+#if PL_CONFIG_HAS_REMOTE
+		data = 'G';
+		(void)RAPP_SendPayloadDataBlock(&data, sizeof(data), RAPP_MSG_TYPE_JOYSTICK_BTN, RNETA_GetDestAddr(), RPHY_PACKET_FLAGS_REQ_ACK);
+#endif
 		break;
 #endif
 
