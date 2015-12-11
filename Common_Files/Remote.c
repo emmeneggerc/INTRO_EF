@@ -148,6 +148,8 @@ static void REMOTE_HandleMotorMsg(int16_t speedVal, int16_t directionVal, int16_
   #define SCALE_DOWN 30
   #define MIN_VALUE  250 /* values below this value are ignored */
   #define DRIVE_DOWN 1
+  #define SCALE_UP 4
+
 
   if (!REMOTE_isOn) {
     return;
@@ -162,20 +164,21 @@ static void REMOTE_HandleMotorMsg(int16_t speedVal, int16_t directionVal, int16_
   } else if ((directionVal>MIN_VALUE || directionVal<-MIN_VALUE) && (speedVal>MIN_VALUE || speedVal<-MIN_VALUE)) {
     int16_t speed, speedL, speedR;
 
-    speed = speedVal/SCALE_DOWN;
+    speed = speedVal*SCALE_UP/SCALE_DOWN;
     if (directionVal<0) {
       if (speed<0) {
-        speedR = speed+(directionVal/SCALE_DOWN);
+        speedL = speed-(directionVal*SCALE_UP/SCALE_DOWN);
       } else {
-        speedR = speed-(directionVal/SCALE_DOWN);
+        speedL = speed+(directionVal*SCALE_UP/SCALE_DOWN);
       }
-      speedL = speed;
-    } else {
       speedR = speed;
+    } else {
+    	speedL = speed;
+      //speedR = speed;
       if (speed<0) {
-        speedL = speed-(directionVal/SCALE_DOWN);
+        speedR = speed+(directionVal*SCALE_UP/SCALE_DOWN);
       } else {
-        speedL = speed+(directionVal/SCALE_DOWN);
+        speedR = speed-(directionVal*SCALE_UP/SCALE_DOWN);
       }
     }
 #if PL_CONFIG_HAS_DRIVE
@@ -186,14 +189,14 @@ static void REMOTE_HandleMotorMsg(int16_t speedVal, int16_t directionVal, int16_
 #endif
   } else if (speedVal>100 || speedVal<-100) { /* speed */
 #if PL_CONFIG_HAS_DRIVE
-    DRV_SetSpeed(speedVal, speedVal);
+    DRV_SetSpeed(speedVal*SCALE_UP, speedVal*SCALE_UP);
 #else
     MOT_SetSpeedPercent(MOT_GetMotorHandle(MOT_MOTOR_LEFT), -speedVal/SCALE_DOWN);
     MOT_SetSpeedPercent(MOT_GetMotorHandle(MOT_MOTOR_RIGHT), -speedVal/SCALE_DOWN);
 #endif
   } else if (directionVal>100 || directionVal<-100) { /* direction */
 #if PL_CONFIG_HAS_DRIVE
-    DRV_SetSpeed(directionVal/DRIVE_DOWN, -directionVal/DRIVE_DOWN);
+    DRV_SetSpeed(directionVal*SCALE_UP/DRIVE_DOWN, -directionVal*SCALE_UP/DRIVE_DOWN);
 #else
     MOT_SetSpeedPercent(MOT_GetMotorHandle(MOT_MOTOR_LEFT), -directionVal/SCALE_DOWN);
     MOT_SetSpeedPercent(MOT_GetMotorHandle(MOT_MOTOR_RIGHT), (directionVAl/SCALE_DOWN));
@@ -293,7 +296,7 @@ uint8_t REMOTE_HandleRemoteRxMessage(RAPP_MSG_Type type, uint8_t size, uint8_t *
         DRV_SetMode(DRV_MODE_SPEED);
         SHELL_SendString("Remote ON\r\n");
       } else if (val=='C') { /* red 'C' button */
-        /*! \todo add functionality */
+        SHELL_SendString("DINI FETTI MUETER");
       } else if (val=='A') { /* green 'A' button */
         /*! \todo add functionality */
       }
