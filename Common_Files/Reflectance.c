@@ -121,6 +121,17 @@ static const SensorFctType SensorFctArray[REF_NOF_SENSORS] = {
 RefStateType REF_GetCalibData(void);
 void REF_SaveCalibData(void);
 
+#if PL_CONFIG_HAS_LINE_MAZE
+void REF_GetSensorValues(uint16_t *values, int nofValues) {
+  int i;
+
+  for(i=0;i<nofValues && i<REF_NOF_SENSORS;i++) {
+    values[i] = SensorCalibrated[i];
+  }
+}
+#endif
+
+
 #if REF_START_STOP_CALIB
 void REF_CalibrateStartStop(void) {
   if (refState==REF_STATE_NOT_CALIBRATED || refState==REF_STATE_CALIBRATING || refState==REF_STATE_READY) {

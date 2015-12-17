@@ -32,7 +32,7 @@
 #endif
 
 #if PL_CONFIG_HAS_REMOTE
-#include "RApp.h".h"
+#include "RApp.h"
 #include "RNet_App.h"
 #endif
 #if PL_CONFIG_HAS_KEYS
