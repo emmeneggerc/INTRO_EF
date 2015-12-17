@@ -42,6 +42,7 @@
 static bool REMOTE_isOn = FALSE;
 static bool REMOTE_isVerbose = FALSE;
 static bool REMOTE_useJoystick = TRUE;
+static uint8 Scale_Up_Factor = 4;
 #if PL_CONFIG_HAS_JOYSTICK
 static uint16_t midPointX, midPointY;
 #endif
@@ -146,9 +147,9 @@ static void RemoteTask (void *pvParameters) {
 #if PL_CONFIG_HAS_MOTOR
 static void REMOTE_HandleMotorMsg(int16_t speedVal, int16_t directionVal, int16_t z) {
   #define SCALE_DOWN 30
-  #define MIN_VALUE  250 /* values below this value are ignored */
+  #define MIN_VALUE  100 /* values below this value are ignored */
   #define DRIVE_DOWN 1
-  #define SCALE_UP 4
+
 
 
   if (!REMOTE_isOn) {
@@ -164,21 +165,21 @@ static void REMOTE_HandleMotorMsg(int16_t speedVal, int16_t directionVal, int16_
   } else if ((directionVal>MIN_VALUE || directionVal<-MIN_VALUE) && (speedVal>MIN_VALUE || speedVal<-MIN_VALUE)) {
     int16_t speed, speedL, speedR;
 
-    speed = speedVal*SCALE_UP/SCALE_DOWN;
+    speed = speedVal*Scale_Up_Factor/SCALE_DOWN;
     if (directionVal<0) {
       if (speed<0) {
-        speedL = speed-(directionVal*SCALE_UP/SCALE_DOWN);
+        speedL = speed-(directionVal*Scale_Up_Factor/SCALE_DOWN);
       } else {
-        speedL = speed+(directionVal*SCALE_UP/SCALE_DOWN);
+        speedL = speed+(directionVal*Scale_Up_Factor/SCALE_DOWN);
       }
       speedR = speed;
     } else {
     	speedL = speed;
       //speedR = speed;
       if (speed<0) {
-        speedR = speed+(directionVal*SCALE_UP/SCALE_DOWN);
+        speedR = speed+(directionVal*Scale_Up_Factor/SCALE_DOWN);
       } else {
-        speedR = speed-(directionVal*SCALE_UP/SCALE_DOWN);
+        speedR = speed-(directionVal*Scale_Up_Factor/SCALE_DOWN);
       }
     }
 #if PL_CONFIG_HAS_DRIVE
@@ -187,16 +188,16 @@ static void REMOTE_HandleMotorMsg(int16_t speedVal, int16_t directionVal, int16_
     MOT_SetSpeedPercent(MOT_GetMotorHandle(MOT_MOTOR_LEFT), speedL);
     MOT_SetSpeedPercent(MOT_GetMotorHandle(MOT_MOTOR_RIGHT), speedR);
 #endif
-  } else if (speedVal>100 || speedVal<-100) { /* speed */
+  } else if (speedVal>100/Scale_Up_Factor || speedVal<-100/Scale_Up_Factor) { /* speed */
 #if PL_CONFIG_HAS_DRIVE
-    DRV_SetSpeed(speedVal*SCALE_UP, speedVal*SCALE_UP);
+    DRV_SetSpeed(speedVal*Scale_Up_Factor, speedVal*Scale_Up_Factor);
 #else
     MOT_SetSpeedPercent(MOT_GetMotorHandle(MOT_MOTOR_LEFT), -speedVal/SCALE_DOWN);
     MOT_SetSpeedPercent(MOT_GetMotorHandle(MOT_MOTOR_RIGHT), -speedVal/SCALE_DOWN);
 #endif
-  } else if (directionVal>100 || directionVal<-100) { /* direction */
+  } else if (directionVal>100/Scale_Up_Factor || directionVal<-100/Scale_Up_Factor) { /* direction */
 #if PL_CONFIG_HAS_DRIVE
-    DRV_SetSpeed(directionVal*SCALE_UP/DRIVE_DOWN, -directionVal*SCALE_UP/DRIVE_DOWN);
+    DRV_SetSpeed(directionVal*Scale_Up_Factor/DRIVE_DOWN, -directionVal*Scale_Up_Factor/DRIVE_DOWN);
 #else
     MOT_SetSpeedPercent(MOT_GetMotorHandle(MOT_MOTOR_LEFT), -directionVal/SCALE_DOWN);
     MOT_SetSpeedPercent(MOT_GetMotorHandle(MOT_MOTOR_RIGHT), (directionVAl/SCALE_DOWN));
@@ -240,6 +241,7 @@ uint8_t REMOTE_HandleRemoteRxMessage(RAPP_MSG_Type type, uint8_t size, uint8_t *
 
   (void)size;
   (void)packet;
+  Scale_Up_Factor = 2;
   switch(type) {
 #if PL_CONFIG_HAS_MOTOR
     case RAPP_MSG_TYPE_JOYSTICK_XY: /* values are -128...127 */
@@ -296,7 +298,7 @@ uint8_t REMOTE_HandleRemoteRxMessage(RAPP_MSG_Type type, uint8_t size, uint8_t *
         DRV_SetMode(DRV_MODE_SPEED);
         SHELL_SendString("Remote ON\r\n");
       } else if (val=='C') { /* red 'C' button */
-        SHELL_SendString("DINI FETTI MUETER");
+        Scale_Up_Factor = 4;
       } else if (val=='A') { /* green 'A' button */
         /*! \todo add functionality */
       }
