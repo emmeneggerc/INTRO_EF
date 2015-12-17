@@ -226,6 +226,8 @@ void MAZE_AddPath(TURN_Kind kind) {
 				}
 			}
 		}
+		path[pathLength - 1] = 99;
+		path[pathLength - 2] = 99;
 		pathLength = pathLength - 2;		// set index to the right position!
 	}
 }
@@ -248,7 +250,7 @@ uint8_t MAZE_EvaluteTurn(bool *finished, bool rule) {
 	REF_LineKind historyLineKind, currLineKind;
 	TURN_Kind turn;
 
-		*finished = FALSE;
+	*finished = FALSE;
 	currLineKind = REF_GetLineKind();
 	if (currLineKind == REF_LINE_NONE) { /* nothing, must be dead end */
 		turn = TURN_LEFT180;

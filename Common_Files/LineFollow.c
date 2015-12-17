@@ -105,7 +105,7 @@ static void StateMachine(void) {
 		break;
 	case STATE_FINISHED:
 		/*! \todo Handle maze finished? */
-		LF_currState = STATE_RETURN;
+	//	LF_currState = STATE_RETURN;
 		break;
 
 	case STATE_RETURN:
