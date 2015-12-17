@@ -65,7 +65,7 @@ typedef struct SensorFctType_ {
 } SensorFctType;
 
 typedef uint16_t SensorTimeType;
-#define MAX_SENSOR_VALUE  ((SensorTimeType)-1)
+#define MAX_SENSOR_VALUE  7000 //((SensorTimeType)-1)
 
 /* calibration min/max values */
 typedef struct SensorCalibT_ {
@@ -170,17 +170,15 @@ static void REF_MeasureRaw(SensorTimeType raw[REF_NOF_SENSORS]) {
       if (raw[i]==MAX_SENSOR_VALUE) { /* not measured yet? */
         if (SensorFctArray[i].GetVal()==0) {
           raw[i] = timerVal;
-
-        }else{
-        	if(timerVal > 0xFF00){
-        		cnt = REF_NOF_SENSORS;
-        		break;
-        	}
         }
       } else { /* have value */
         cnt++;
       }
     }
+	if(timerVal > MAX_SENSOR_VALUE){
+		cnt = REF_NOF_SENSORS;
+		break;
+	}
   } while(cnt!=REF_NOF_SENSORS);
   FRTOS1_taskEXIT_CRITICAL();
   LED_IR_Off(); /* IR LED's off */
@@ -554,7 +552,7 @@ static void ReflTask (void *pvParameters) {
 //  SQUEUE_SendString("Reflectance task started!\r\n");
   for(;;) {
     REF_StateMachine();
-    FRTOS1_vTaskDelay(50/portTICK_RATE_MS);
+    FRTOS1_vTaskDelay(10/portTICK_RATE_MS);
   }
 }
 
@@ -605,5 +603,7 @@ RefStateType REF_GetCalibData(void){
 	return (RefStateType) REF_STATE_INIT;
 
 }
+
+
 
 #endif /* PL_HAS_REFLECTANCE */

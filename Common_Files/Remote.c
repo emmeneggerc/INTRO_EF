@@ -16,6 +16,7 @@
 #include "CLS1.h"
 #include "UTIL1.h"
 #include "Shell.h"
+#include "LineFollow.h"
 #if PL_CONFIG_HAS_PID
   #include "PID.h"
 #endif
@@ -289,9 +290,10 @@ uint8_t REMOTE_HandleRemoteRxMessage(RAPP_MSG_Type type, uint8_t size, uint8_t *
 #if PL_CONFIG_HAS_SHELL && PL_CONFIG_HAS_BUZZER && PL_CONFIG_HAS_REMOTE
       if (val=='F') { /* F button, disable remote */
         SHELL_ParseCmd((unsigned char*)"buzzer buz 300 500");
-        REMOTE_SetOnOff(FALSE);
-        DRV_SetSpeed(0,0); /* turn off motors */
-        SHELL_SendString("Remote OFF\r\n");
+       // REMOTE_SetOnOff(FALSE);
+       // DRV_SetSpeed(0,0); /* turn off motors */
+       // SHELL_SendString("Remote OFF\r\n");
+
       } else if (val=='G') { /* center joystick button: enable remote */
         SHELL_ParseCmd((unsigned char*)"buzzer buz 300 1000");
         REMOTE_SetOnOff(TRUE);
@@ -301,6 +303,7 @@ uint8_t REMOTE_HandleRemoteRxMessage(RAPP_MSG_Type type, uint8_t size, uint8_t *
         Scale_Up_Factor = 4;
       } else if (val=='A') { /* green 'A' button */
         /*! \todo add functionality */
+    	  LF_StartFollowing();
       }
 #else
       *handled = FALSE; /* no shell and no buzzer? */

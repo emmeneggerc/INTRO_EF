@@ -30,7 +30,7 @@
 #define LINE_DEBUG      1   /* careful: this will slow down the PID loop frequency! */
 
 static bool rule = TRUE; // TRUE: left hand on the wall   FALSE: rigth hand on the wall
-static uint8_t  returnIndex = 0;
+static uint8_t returnIndex = 0;
 
 typedef enum {
 	STATE_IDLE, /* idle, not doing anything */
@@ -97,24 +97,23 @@ static void StateMachine(void) {
 			LF_currState = STATE_STOP;
 			break;
 		}
-		if (finished == TRUE) {
+		if (finished) {
 			LF_currState = STATE_FINISHED;
 			break;
 		}
 		LF_currState = STATE_FOLLOW_SEGMENT;
+		DRV_SetMode(DRV_MODE_NONE);
 		break;
+
 	case STATE_FINISHED:
 		/*! \todo Handle maze finished? */
-	//	LF_currState = STATE_RETURN;
-		break;
-
-	case STATE_RETURN:
-		/*! \todo Handle maze finished? */
-		if (!FollowSegment()) {
-			TURN_Turn(MAZE_GetSolvedTurn(returnIndex),FALSE);
-			returnIndex++;
+		if (!MAZE_IsSolved()) {
+			TURN_Turn(TURN_RIGHT180, NULL);
+			MAZE_SetSolved();
+			LF_currState = STATE_FOLLOW_SEGMENT;
+		} else {
+			LF_currState = STATE_STOP;
 		}
-
 		break;
 
 	case STATE_STOP:

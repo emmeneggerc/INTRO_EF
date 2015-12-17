@@ -21,6 +21,7 @@ uint8_t LF_ParseCommand(const unsigned char *cmd, bool *handled, const CLS1_StdI
 void LF_StartFollowing(void);
 void LF_StopFollowing(void);
 bool LF_IsFollowing(void);
+static bool FollowSegment(void);
 
 void LF_Init(void);
 void LF_Deinit(void);

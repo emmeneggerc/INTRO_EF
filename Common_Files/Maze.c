@@ -16,8 +16,10 @@
 #include "Shell.h"
 #include "Reflectance.h"
 
+
 #define MAZE_MIN_LINE_VAL      0x100   /* minimum value indicating a line */
 static uint16_t SensorHistory[REF_NOF_SENSORS]; /* value of history while moving forward */
+uint8_t index = 0;
 
 static void MAZE_SampleSensorHistory(void) {
 	uint8_t i;
@@ -109,6 +111,7 @@ static void MAZE_RevertPath(void) {
 		i++;
 		j--;
 	}
+	//path[pathLength] = TURN_FINISHED;
 }
 #endif
 
@@ -125,8 +128,8 @@ static void MAZE_RevertPath(void) {
 TURN_Kind MAZE_SelectTurn(REF_LineKind prev, REF_LineKind curr, bool rule) {
 	//MAZE_SimplifyPath(); /* bei Problemen criticalSection  erstellen*/
 	if (prev == REF_LINE_NONE && curr == REF_LINE_NONE) { /* dead end */
-		MAZE_AddPath(TURN_RIGHT180);
-		return TURN_RIGHT180; /* make U turn */
+		MAZE_AddPath(TURN_LEFT180);
+		return TURN_LEFT180; /* make U turn */
 	} else if (prev == REF_LINE_LEFT && curr == REF_LINE_NONE) { // Linke Ecke
 		MAZE_AddPath(TURN_LEFT90);
 		return TURN_LEFT90;
@@ -166,7 +169,7 @@ TURN_Kind MAZE_SelectTurn(REF_LineKind prev, REF_LineKind curr, bool rule) {
 			return TURN_RIGHT90;
 		}
 	} else if (prev == REF_LINE_FULL && curr == REF_LINE_FULL) {	// Viereck
-		MAZE_SetSolved();
+	//MAZE_AddPath(TURN_FINISHED);
 		return TURN_FINISHED;
 	}
 	return TURN_STOP; /* error case */
@@ -175,6 +178,8 @@ TURN_Kind MAZE_SelectTurn(REF_LineKind prev, REF_LineKind curr, bool rule) {
 void MAZE_SetSolved(void) {
 	isSolved = TRUE;
 	/*! \todo here the path could be reverted */
+	MAZE_SimplifyPath();
+	MAZE_RevertPath();
 }
 
 bool MAZE_IsSolved(void) {
@@ -188,48 +193,6 @@ void MAZE_AddPath(TURN_Kind kind) {
 	} else {
 		/* error! */
 	}
-	if (pathLength > 2) {								// at least 3 elements
-		if (path[pathLength - 2] == TURN_RIGHT180) {			// U: detected
-
-			if (path[pathLength - 3] == TURN_RIGHT90) {	// Pattern starts with R
-				if (path[pathLength - 1] == TURN_LEFT90) {		// R U L ->  U
-					path[pathLength - 3] = TURN_RIGHT180;
-				}
-				if (path[pathLength - 1] == TURN_STRAIGHT) {	// R U S ->  L
-					path[pathLength - 3] = TURN_LEFT90;
-				}
-				if (path[pathLength - 1] == TURN_RIGHT90) {		// R U R ->  S
-					path[pathLength - 3] = TURN_STRAIGHT;
-				}
-			}
-
-			if (path[pathLength - 3] == TURN_LEFT90) {	// Pattern starts with L
-				if (path[pathLength - 1] == TURN_RIGHT90) {		// L U R ->  U
-					path[pathLength - 3] = TURN_RIGHT180;
-				}
-				if (path[pathLength - 1] == TURN_STRAIGHT) {	// L U S ->  R
-					path[pathLength - 3] = TURN_RIGHT90;
-				}
-				if (path[pathLength - 1] == TURN_LEFT90) {		// L U L ->  S
-					path[pathLength - 3] = TURN_STRAIGHT;
-				}
-			}
-			if (path[pathLength - 3] == TURN_STRAIGHT) {// Pattern starts with S
-				if (path[pathLength - 1] == TURN_LEFT90) {		// S U L ->  R
-					path[pathLength - 3] = TURN_RIGHT90;
-				}
-				if (path[pathLength - 1] == TURN_RIGHT90) {		// S U R ->  L
-					path[pathLength - 3] = TURN_LEFT90;
-				}
-				if (path[pathLength - 1] == TURN_STRAIGHT) {	// S U S ->  U
-					path[pathLength - 3] = TURN_RIGHT180;
-				}
-			}
-		}
-		path[pathLength - 1] = 99;
-		path[pathLength - 2] = 99;
-		pathLength = pathLength - 2;		// set index to the right position!
-	}
 }
 
 /*!
@@ -237,9 +200,71 @@ void MAZE_AddPath(TURN_Kind kind) {
  * The idea is that whenever we encounter x-TURN_RIGHT180-x or x-TURN_LEFT180-x, we simplify it by cutting the dead end.
  * For example if we have TURN_LEFT90-TURN_RIGHT180-TURN_LEFT90, this can be simplified with TURN_STRAIGHT.
  */
+/*!
+ *
+ */
 void MAZE_SimplifyPath(void) {
-	/*! \todo implement simplification? */
+	int k = 0;
+	int counter = 0;
+	int i = 0;
+	TURN_Kind pathnew[MAZE_MAX_PATH];
+	do {
+		counter = 0;
+		k = 0;
+		for (i = 0; i < pathLength; i++) {
 
+			if (path[i] == TURN_LEFT180) {
+				counter++;
+				if (path[i - 1] == TURN_STRAIGHT
+						&& path[i + 1] == TURN_LEFT90) {
+					path[k - 1] = TURN_RIGHT90;
+					i++;
+				} else if (path[i - 1] == TURN_LEFT90
+						&& path[i + 1] == TURN_LEFT90) {
+					path[k - 1] = TURN_STRAIGHT;
+					i++;
+				} else if (path[i - 1] == TURN_LEFT90
+						&& path[i + 1] == TURN_RIGHT90) {
+					path[k - 1] = TURN_LEFT180;
+					i++;
+				} else if (path[i - 1] == TURN_RIGHT90
+						&& path[i + 1] == TURN_LEFT90) {
+					path[k - 1] = TURN_LEFT180;
+					i++;
+				} else if (path[i - 1] == TURN_LEFT90
+						&& path[i + 1] == TURN_STRAIGHT) {
+					path[k - 1] = TURN_RIGHT90;
+					i++;
+				} else if (path[i - 1] == TURN_RIGHT90
+						&& path[i + 1] == TURN_STRAIGHT) {
+					path[k - 1] = TURN_LEFT90;
+					i++;
+				} else if (path[i - 1] == TURN_RIGHT90
+						&& path[i + 1] == TURN_RIGHT90) {
+					path[k - 1] = TURN_STRAIGHT;
+					i++;
+				} else if (path[i - 1] == TURN_STRAIGHT
+						&& path[i + 1] == TURN_RIGHT90) {
+					path[k - 1] = TURN_LEFT90;
+					i++;
+				} else if (path[i - 1] == TURN_STRAIGHT
+						&& path[i + 1] == TURN_STRAIGHT) {
+					path[k - 1] = TURN_LEFT180;
+					i++;
+				}
+				i++;
+				break;
+
+			} else {
+				k++;
+			}
+		}
+		for (i; i < pathLength; i++) {
+			path[k] = path[i];
+			k++;
+		}
+		pathLength = k;
+	} while (counter != 0);
 }
 
 /*!
@@ -250,11 +275,32 @@ uint8_t MAZE_EvaluteTurn(bool *finished, bool rule) {
 	REF_LineKind historyLineKind, currLineKind;
 	TURN_Kind turn;
 
+	if (isSolved) {
+
+			if (index < pathLength) {
+				TURN_Turn(TURN_STEP_LINE_FW_POST_LINE, NULL);
+				TURN_Turn(MAZE_GetSolvedTurn(&index), NULL);
+				return ERR_OK;
+			} else {
+				TURN_Turn(TURN_LEFT180, NULL);
+				MAZE_ClearSolution();
+				LF_StopFollowing();
+				*finished = TRUE;
+				index = 0;
+			}
+
+
+		return ERR_OK;
+	}
+
 	*finished = FALSE;
 	currLineKind = REF_GetLineKind();
 	if (currLineKind == REF_LINE_NONE) { /* nothing, must be dead end */
 		turn = TURN_LEFT180;
-	} else {
+		MAZE_AddPath(TURN_LEFT180);
+	}
+
+	else {
 		MAZE_ClearSensorHistory(); /* clear history values */
 		MAZE_SampleSensorHistory(); /* store current values */
 		TURN_Turn(TURN_STEP_LINE_FW_POST_LINE, MAZE_SampleTurnStopFunction); /* do the line and beyond in one step */

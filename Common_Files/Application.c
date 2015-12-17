@@ -1,5 +1,5 @@
 /*
- * Application.c
+ x * Application.c
 
  *
  *  Created on: 30.09.2015
@@ -34,11 +34,16 @@
 #if PL_CONFIG_HAS_REMOTE
 #include "RApp.h"
 #include "RNet_App.h"
+#include "RStdIO.h"
 #endif
+
+bool calib = FALSE;
+
+
 #if PL_CONFIG_HAS_KEYS
 void APP_KeyEvntHandler(EVNT_Handle event) {
 #if PL_CONFIG_HAS_REMOTE
-	uint8_t	data;
+	uint8_t data;
 #endif
 	switch (event) {
 
@@ -57,28 +62,33 @@ void APP_KeyEvntHandler(EVNT_Handle event) {
 #endif
 #if PL_CONFIG_HAS_REMOTE
 		data = 'A';
-		(void)RAPP_SendPayloadDataBlock(&data, sizeof(data), RAPP_MSG_TYPE_JOYSTICK_BTN, RNETA_GetDestAddr(), RPHY_PACKET_FLAGS_REQ_ACK);
+		(void) RAPP_SendPayloadDataBlock(&data, sizeof(data),
+				RAPP_MSG_TYPE_JOYSTICK_BTN, RNETA_GetDestAddr(),
+				RPHY_PACKET_FLAGS_REQ_ACK);
+
 #endif
 		break;
 #endif
 
 #if PL_CONFIG_NOF_KEYS >= 2
-		case EVNT_SW2_PRESSED:
+	case EVNT_SW2_PRESSED:
 #if !PL_CONFIG_EVENTS_AUTO_CLEAR
 		EVNT_ClearEvent(EVNT_SW2_PRESSED);
 #endif
 #if PL_CONFIG_HAS_SHELL
-		CLS1_SendStr("SW2 pressed\r\n",CLS1_GetStdio()->stdOut);
+		CLS1_SendStr("SW2 pressed\r\n", CLS1_GetStdio()->stdOut);
 #endif
 #if PL_CONFIG_HAS_REMOTE
 		data = 'B';
-		(void)RAPP_SendPayloadDataBlock(&data, sizeof(data), RAPP_MSG_TYPE_JOYSTICK_BTN, RNETA_GetDestAddr(), RPHY_PACKET_FLAGS_REQ_ACK);
+		(void) RAPP_SendPayloadDataBlock(&data, sizeof(data),
+				RAPP_MSG_TYPE_JOYSTICK_BTN, RNETA_GetDestAddr(),
+				RPHY_PACKET_FLAGS_REQ_ACK);
 #endif
 		break;
 #endif
 
 #if PL_CONFIG_NOF_KEYS >= 3
-		case EVNT_SW3_PRESSED:
+	case EVNT_SW3_PRESSED:
 #if !PL_CONFIG_EVENTS_AUTO_CLEAR
 		EVNT_ClearEvent(EVNT_SW3_PRESSED);
 #endif
@@ -87,13 +97,15 @@ void APP_KeyEvntHandler(EVNT_Handle event) {
 #endif
 #if PL_CONFIG_HAS_REMOTE
 		data = 'C';
-		(void)RAPP_SendPayloadDataBlock(&data, sizeof(data), RAPP_MSG_TYPE_JOYSTICK_BTN, RNETA_GetDestAddr(), RPHY_PACKET_FLAGS_REQ_ACK);
+		(void) RAPP_SendPayloadDataBlock(&data, sizeof(data),
+				RAPP_MSG_TYPE_JOYSTICK_BTN, RNETA_GetDestAddr(),
+				RPHY_PACKET_FLAGS_REQ_ACK);
 #endif
 		break;
 #endif
 
 #if PL_CONFIG_NOF_KEYS >= 4
-		case EVNT_SW4_PRESSED:
+	case EVNT_SW4_PRESSED:
 #if !PL_CONFIG_EVENTS_AUTO_CLEAR
 		EVNT_ClearEvent(EVNT_SW4_PRESSED);
 #endif
@@ -102,13 +114,15 @@ void APP_KeyEvntHandler(EVNT_Handle event) {
 #endif
 #if PL_CONFIG_HAS_REMOTE
 		data = 'D';
-		(void)RAPP_SendPayloadDataBlock(&data, sizeof(data), RAPP_MSG_TYPE_JOYSTICK_BTN, RNETA_GetDestAddr(), RPHY_PACKET_FLAGS_REQ_ACK);
+		(void) RAPP_SendPayloadDataBlock(&data, sizeof(data),
+				RAPP_MSG_TYPE_JOYSTICK_BTN, RNETA_GetDestAddr(),
+				RPHY_PACKET_FLAGS_REQ_ACK);
 #endif
 		break;
 #endif
 
 #if PL_CONFIG_NOF_KEYS >= 5
-		case EVNT_SW5_PRESSED:
+	case EVNT_SW5_PRESSED:
 #if !PL_CONFIG_EVENTS_AUTO_CLEAR
 		EVNT_ClearEvent(EVNT_SW5_PRESSED);
 #endif
@@ -122,13 +136,25 @@ void APP_KeyEvntHandler(EVNT_Handle event) {
 #endif
 #if PL_CONFIG_HAS_REMOTE
 		data = 'E';
-		(void)RAPP_SendPayloadDataBlock(&data, sizeof(data), RAPP_MSG_TYPE_JOYSTICK_BTN, RNETA_GetDestAddr(), RPHY_PACKET_FLAGS_REQ_ACK);
+		(void) RAPP_SendPayloadDataBlock(&data, sizeof(data),
+				RAPP_MSG_TYPE_JOYSTICK_BTN, RNETA_GetDestAddr(),
+				RPHY_PACKET_FLAGS_REQ_ACK);
+if(!calib){
+		(void) RSTDIO_SendToTxStdio(RSTDIO_QUEUE_TX_IN, "ref calib start\r\n",
+					sizeof("ref calib start\r\n") - 1);
+		calib = TRUE;
+}else{
+	(void) RSTDIO_SendToTxStdio(RSTDIO_QUEUE_TX_IN, "ref calib stop\r\n",
+						sizeof("ref calib stop\r\n") - 1);
+			calib = FALSE;
+}
+
 #endif
 		break;
 #endif
 
 #if PL_CONFIG_NOF_KEYS >= 6
-		case EVNT_SW6_PRESSED:
+	case EVNT_SW6_PRESSED:
 #if !PL_CONFIG_EVENTS_AUTO_CLEAR
 		EVNT_ClearEvent(EVNT_SW6_PRESSED);
 #endif
@@ -137,13 +163,15 @@ void APP_KeyEvntHandler(EVNT_Handle event) {
 #endif
 #if PL_CONFIG_HAS_REMOTE
 		data = 'F';
-		(void)RAPP_SendPayloadDataBlock(&data, sizeof(data), RAPP_MSG_TYPE_JOYSTICK_BTN, RNETA_GetDestAddr(), RPHY_PACKET_FLAGS_REQ_ACK);
+		(void) RAPP_SendPayloadDataBlock(&data, sizeof(data),
+				RAPP_MSG_TYPE_JOYSTICK_BTN, RNETA_GetDestAddr(),
+				RPHY_PACKET_FLAGS_REQ_ACK);
 #endif
 		break;
 #endif
 
 #if PL_CONFIG_NOF_KEYS >= 7
-		case EVNT_SW7_PRESSED:
+	case EVNT_SW7_PRESSED:
 #if !PL_CONFIG_EVENTS_AUTO_CLEAR
 		EVNT_ClearEvent(EVNT_SW7_PRESSED);
 #endif
@@ -152,7 +180,9 @@ void APP_KeyEvntHandler(EVNT_Handle event) {
 #endif
 #if PL_CONFIG_HAS_REMOTE
 		data = 'G';
-		(void)RAPP_SendPayloadDataBlock(&data, sizeof(data), RAPP_MSG_TYPE_JOYSTICK_BTN, RNETA_GetDestAddr(), RPHY_PACKET_FLAGS_REQ_ACK);
+		(void) RAPP_SendPayloadDataBlock(&data, sizeof(data),
+				RAPP_MSG_TYPE_JOYSTICK_BTN, RNETA_GetDestAddr(),
+				RPHY_PACKET_FLAGS_REQ_ACK);
 #endif
 		break;
 #endif
@@ -190,12 +220,12 @@ void APP_HandleEvent(EVNT_Handle event) {
 
 }
 
-void App(void){
+void App(void) {
 	EVNT_HandleEvent(APP_HandleEvent);
-			KEY_Scan();
-	#if PL_CONFIG_HAS_TETRIS
-			TETRIS_Run();
-	#endif
+	KEY_Scan();
+#if PL_CONFIG_HAS_TETRIS
+	TETRIS_Run();
+#endif
 }
 
 void APP_Run(void) {
@@ -204,7 +234,7 @@ void APP_Run(void) {
 	EVNT_SetEvent(EVNT_STARTUP);
 	RTOS_Run();
 #else
-	for(,,){
+	for(,,) {
 		App();
 	}
 	PL_Deinit();
